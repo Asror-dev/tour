@@ -20,18 +20,18 @@ public class Tour {
     private String description;
     private Double price;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tour")
     private List<TourDay> tourDays;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tour")
     private List<Video> videos;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tour")
     private List<Image> images;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tour")
     private List<Comment> comments;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tour")
     private List<Enquiry> enquiries;
 }
