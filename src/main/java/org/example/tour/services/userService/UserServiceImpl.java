@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setFirstName(registerDto.getFirstName());
         user.setPhone(registerDto.getPhone());
-        user.setRegisterTime(LocalDate.now());
         user.setRoles(List.of(roleUser));
         userRepo.save(user);
 
