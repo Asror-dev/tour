@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Entity(name = "Enquiry")
+@Entity(name = "enquiry")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +18,8 @@ public class Enquiry {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private String firstName;
+    private String lastName;
+    private String phone;
+    private String text;
 }

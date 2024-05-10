@@ -1,13 +1,11 @@
 package org.example.tour.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "tour")
@@ -18,4 +16,22 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private String title;
+    private String description;
+    private Double price;
+
+    @OneToMany
+    private List<TourDay> tourDays;
+
+    @OneToMany
+    private List<Video> videos;
+
+    @OneToMany
+    private List<Image> images;
+
+    @OneToMany
+    private List<Comment> comments;
+
+    @OneToMany
+    private List<Enquiry> enquiries;
 }

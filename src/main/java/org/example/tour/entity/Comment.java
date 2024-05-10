@@ -18,4 +18,9 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private String firstName;
+    private String lastName;
+    private String text;
+    private Boolean visible;
+
 }
