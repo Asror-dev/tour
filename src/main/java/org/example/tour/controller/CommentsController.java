@@ -1,12 +1,10 @@
 package org.example.tour.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.tour.dto.CommentDto;
 import org.example.tour.services.commentServise.CommentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -22,6 +20,37 @@ public class CommentsController {
 
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteComment(@RequestParam UUID commentId){
+        try {
+            commentService.deletComment(commentId);
+            return ResponseEntity.ok("deleted");
+
+        }catch (Exception e){
+            return ResponseEntity.status(500).body("not deleted");
+
+        }
+    }
+    @PostMapping("/add")
+    public ResponseEntity<?> addComment(@RequestBody CommentDto dto,@RequestParam UUID tourId){
+
+            commentService.addComment(dto,tourId);
+            return ResponseEntity.ok("added");
+
+
+    }
+
+    @PutMapping("/change/visible")
+    public ResponseEntity<?> changeCommentVisible(@RequestParam UUID commentId){
+        try {
+            commentService.changeCommentVisible(commentId);
+            return ResponseEntity.ok("change");
+
+        }catch (Exception e){
+            return ResponseEntity.status(500).body("not change");
+
         }
     }
 }

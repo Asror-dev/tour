@@ -2,6 +2,7 @@ package org.example.tour.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -10,6 +11,7 @@ import java.util.UUID;
 @Entity(name = "comments")
 @Data
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
 public class Comment {
     @Id
@@ -20,7 +22,7 @@ public class Comment {
     private String text;
     private Boolean visible;
 
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "tour_id")
     private Tour tour;
 
