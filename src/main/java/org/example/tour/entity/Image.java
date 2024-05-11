@@ -21,6 +21,9 @@ public class Image {
     @ManyToOne
     @JoinColumn(name = "tour_id")
     private Tour tour;
+    @ManyToOne
+    @JoinColumn(name = "tour_day_id")
+    private TourDay tourDay;
 
 
 

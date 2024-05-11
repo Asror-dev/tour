@@ -25,15 +25,15 @@ public class TourServiceImpl implements TourService{
     @Override
     public void addTour(MultipartFile[] files, MultipartFile video, String title, String description, Double price) throws IOException {
         Tour tour = new Tour();
-        List<Image> images = new ArrayList<>();
-        List<Video> videos = new ArrayList<>();
-        createImage(files,images);
+//        List<Image> images = new ArrayList<>();
+//        List<Video> videos = new ArrayList<>();
+//        createImage(files,images);
         List<Video> video1 = createVideo(video);
         tour.setTitle(title);
         tour.setDescription(description);
         tour.setPrice(price);
-        tour.setImages(images);
-        tour.setVideos(video1);
+//        tour.setImages(images);
+//        tour.setVideos(video1);
         tourRepo.save(tour);
     }
 

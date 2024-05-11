@@ -22,6 +22,6 @@
         @JoinColumn(name = "tour_id")
         private Tour tour;
 
-        @OneToMany(cascade = CascadeType.ALL)
-        private List<Image> images;
+//        @OneToMany(cascade = CascadeType.ALL)
+//        private List<Image> images;
     }

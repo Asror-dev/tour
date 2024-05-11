@@ -17,6 +17,11 @@ public class CommentsController {
     private final CommentService commentService;
     @GetMapping("/get")
     public ResponseEntity<?> getCommentsByTourId(@RequestParam UUID tourId){
-         return ResponseEntity.ok(commentService.getCommentsByTourId(tourId));
+        try {
+            return ResponseEntity.ok(commentService.getCommentsByTourId(tourId));
+
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
