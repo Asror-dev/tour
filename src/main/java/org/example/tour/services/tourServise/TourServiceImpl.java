@@ -25,20 +25,20 @@ public class TourServiceImpl implements TourService{
     @Override
     public void addTour(MultipartFile[] files, MultipartFile video, String title, String description, Double price) throws IOException {
         Tour tour = new Tour();
-//        List<Image> images = new ArrayList<>();
 //        List<Video> videos = new ArrayList<>();
 //        createImage(files,images);
-        List<Video> video1 = createVideo(video);
+//        List<Video> video1 = createVideo(video);
         tour.setTitle(title);
         tour.setDescription(description);
         tour.setPrice(price);
 //        tour.setImages(images);
 //        tour.setVideos(video1);
-        tourRepo.save(tour);
+        Tour saveTour = tourRepo.save(tour);
+        createImage(files,saveTour);
+        createVideo(video,saveTour);
     }
 
-    private void createImage(MultipartFile[] files, List<Image> images) throws IOException {
-
+    private void createImage(MultipartFile[] files, Tour tour) throws IOException {
 
         String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
         for (MultipartFile file : files) {
@@ -51,15 +51,16 @@ public class TourServiceImpl implements TourService{
                 Image image = new Image();
                 image.setName(uniqueFileName);
                 image.setPath(filePath);
-                Image savedImage = imageRepo.save(image);
-                images.add(savedImage);
+                image.setTour(tour);
+                imageRepo.save(image);
+
 
             } catch (IOException e) {
                 throw new RuntimeException("Failed to store file " + uniqueFileName, e);
             }
         }
     }
-    private List<Video> createVideo(MultipartFile file) throws IOException {
+    private List<Video> createVideo(MultipartFile file,Tour tour) throws IOException {
 
         String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/videos/";
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
@@ -70,6 +71,7 @@ public class TourServiceImpl implements TourService{
             Video video = new Video();
             video.setName(uniqueFileName);
             video.setPath(filePath);
+            video.setTour(tour);
             Video save = videoRepo.save(video);
 
             return List.of(save);

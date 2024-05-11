@@ -20,7 +20,7 @@ public class Comment {
     private String text;
     private Boolean visible;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "tour_id")
     private Tour tour;
 
