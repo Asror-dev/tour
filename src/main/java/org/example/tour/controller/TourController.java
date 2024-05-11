@@ -21,7 +21,7 @@ public class TourController {
 
     @PostMapping("/add")
     public ResponseEntity<?> addTour( @RequestParam(required = false) MultipartFile[] images,@RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Double price){
-try {
+    try {
     tourService.addTour(images, video, title, description, price);
     return ResponseEntity.ok("Tour added successfully");
 } catch (IOException e) {
