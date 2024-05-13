@@ -23,7 +23,8 @@ public class Comment {
     private Boolean visible;
 
     @ManyToOne()
-    @JoinColumn(name = "tour_id")
+    @PrimaryKeyJoinColumn
+
     private Tour tour;
 
 }

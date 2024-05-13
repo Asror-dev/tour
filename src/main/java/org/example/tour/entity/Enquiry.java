@@ -22,6 +22,7 @@ public class Enquiry {
     private String text;
 
     @ManyToOne
-    @JoinColumn(name = "tour_id")
+    @PrimaryKeyJoinColumn
+
     private Tour tour;
 }

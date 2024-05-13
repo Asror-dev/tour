@@ -1,5 +1,6 @@
 package org.example.tour.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,11 +19,12 @@ public class Image {
     private String name;
     private String path;
 
-    @ManyToOne
-    @JoinColumn(name = "tour_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    @JsonBackReference
     private Tour tour;
     @ManyToOne
-    @JoinColumn(name = "tour_day_id")
+    @PrimaryKeyJoinColumn
     private TourDay tourDay;
 
 

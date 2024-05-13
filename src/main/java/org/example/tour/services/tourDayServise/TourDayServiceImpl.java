@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.tour.entity.Image;
 import org.example.tour.entity.Tour;
 import org.example.tour.entity.TourDay;
-import org.example.tour.entity.Video;
+import org.example.tour.projection.TourDayProjection;
 import org.example.tour.repository.ImageRepo;
 import org.example.tour.repository.TourDayRepo;
 import org.example.tour.repository.TourRepo;
@@ -25,13 +25,15 @@ public class TourDayServiceImpl implements TourDayService {
     private final ImageRepo imageRepo;
 
     @Override
-    public void addTourDay(MultipartFile file, String title, UUID tourId) {
+    public void addTourDay(MultipartFile file, String title, String description, UUID tourId) {
         String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
+
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         Tour tour = tourRepo.findById(tourId).orElseThrow();
         TourDay tourDay = new TourDay();
         tourDay.setTitle(title);
+        tourDay.setDescription(description);
         tourDay.setTour(tour);
         tourDayRepo.save(tourDay);
 
@@ -47,5 +49,11 @@ public class TourDayServiceImpl implements TourDayService {
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file " + uniqueFileName, e);
         }
+    }
+
+    @Override
+    public List<TourDayProjection> getTourDaysByTourId(UUID tourId) {
+
+        return tourDayRepo.getTourDaysByTourId(tourId);
     }
 }

@@ -1,5 +1,6 @@
 package org.example.tour.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,8 @@ public class Video {
     private String path;
 
     @ManyToOne
-    @JoinColumn(name = "tour_id")
+    @PrimaryKeyJoinColumn
+    @JsonIgnore
+
     private Tour tour;
 }

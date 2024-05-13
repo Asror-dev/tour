@@ -33,9 +33,14 @@ public class TourServiceImpl implements TourService{
         createVideo(video,saveTour);
     }
 
+    @Override
+    public List<Tour> getAllTours() {
+        return tourRepo.findAll();
+    }
+
     private void createImage(MultipartFile[] files, Tour tour) throws IOException {
 
-        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/images/";
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
         for (MultipartFile file : files) {
             String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
             String filePath = uploadDir + uniqueFileName;
@@ -57,7 +62,7 @@ public class TourServiceImpl implements TourService{
     }
     private List<Video> createVideo(MultipartFile file,Tour tour) throws IOException {
 
-        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/videos/";
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/videos/";
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {

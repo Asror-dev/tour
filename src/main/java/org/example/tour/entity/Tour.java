@@ -1,5 +1,7 @@
 package org.example.tour.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,20 +23,28 @@ public class Tour {
     private String title;
     private String description;
     private Double price;
-//
-//    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
-//    private List<TourDay> tourDays;
-//
-//    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
-//    private List<Video> videos;
-//
-//    @OneToMany(fetch =FetchType.EAGER,cascade = CascadeType.ALL)
-//    @JoinColumn(name = "tour")
-//    private List<Image> images;
-//
-//    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
-//    private List<Comment> comments;
-//
-//    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
-//    private List<Enquiry> enquiries;
+
+    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
+    @JsonIgnore
+
+    private List<TourDay> tourDays;
+
+    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
+    @JsonIgnore
+
+    private List<Video> videos;
+
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Image> images;
+
+    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
+    @JsonIgnore
+
+    private List<Comment> comments;
+
+    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
+    @JsonIgnore
+
+    private List<Enquiry> enquiries;
 }

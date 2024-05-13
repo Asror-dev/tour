@@ -1,5 +1,6 @@
     package org.example.tour.entity;
 
+    import com.fasterxml.jackson.annotation.JsonIgnore;
     import jakarta.persistence.*;
     import lombok.AllArgsConstructor;
     import lombok.Data;
@@ -17,11 +18,16 @@
         @GeneratedValue(strategy = GenerationType.UUID)
         private UUID id;
         private String title;
+        private String description;
 
         @ManyToOne
-        @JoinColumn(name = "tour_id")
+        @PrimaryKeyJoinColumn
+        @JsonIgnore
+
         private Tour tour;
 
-//        @OneToMany(cascade = CascadeType.ALL)
-//        private List<Image> images;
+        @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tourDay")
+        @JsonIgnore
+
+        private List<Image> images;
     }
