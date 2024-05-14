@@ -17,9 +17,9 @@ public class TourController {
     private final TourService tourService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile[] images,@RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Double price){
+    public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile images,@RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Double price,@RequestParam Integer tourDay){
     try {
-    tourService.addTour(images, video, title, description, price);
+    tourService.addTour(images, video, title, description, price,tourDay);
     return ResponseEntity.ok("Tour added successfully");
 } catch (IOException e) {
     throw new RuntimeException(e);
@@ -33,6 +33,34 @@ public class TourController {
 
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @GetMapping("/get")
+    public ResponseEntity<?> getTourById(@RequestParam UUID tourId){
+        try {
+            return ResponseEntity.ok(tourService.getTourById(tourId));
+        }catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PutMapping("/edit")
+    public ResponseEntity<?> editTour(@RequestParam(required = false) MultipartFile image,@RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Double price,@RequestParam UUID tourId){
+        try {
+            tourService.editTour(image, video, title, description, price,tourId);
+            return ResponseEntity.ok("Tour edited successfully");
+        }catch (Exception e) {
+            return ResponseEntity.status(400).body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteTour(@RequestParam UUID tourId){
+        try {
+            tourService.deletTour(tourId);
+            return ResponseEntity.ok("deleted");
+
+        }catch (Exception e){
+            return ResponseEntity.status(500).body("not deleted");
+
         }
     }
 }

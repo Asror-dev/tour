@@ -3,16 +3,14 @@ package org.example.tour.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "tour")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -23,6 +21,7 @@ public class Tour {
     private String title;
     private String description;
     private Double price;
+    private Integer tourDay;
 
     @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
     @JsonIgnore
@@ -31,10 +30,9 @@ public class Tour {
 
     @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
     @JsonIgnore
-
     private List<Video> videos;
 
-    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Image> images;
 

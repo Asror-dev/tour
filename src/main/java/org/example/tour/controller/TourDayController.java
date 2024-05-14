@@ -32,5 +32,25 @@ public class TourDayController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PutMapping("/edit")
+    public ResponseEntity<?> editTourDay(@RequestParam(required = false) MultipartFile image, @RequestParam String title,@RequestParam String description, @RequestParam UUID tourDayId){
+        try {
+            tourDayService.editTourDay(image, title,description, tourDayId);
+            return ResponseEntity.ok("TourDay edited successfully");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteTourDay(@RequestParam UUID tourDayId){
+        try {
+            tourDayService.deletTourDay(tourDayId);
+            return ResponseEntity.ok("deleted");
+
+        }catch (Exception e){
+            return ResponseEntity.status(500).body("not deleted");
+
+        }
+    }
 
 }

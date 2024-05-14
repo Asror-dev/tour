@@ -42,6 +42,10 @@ public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws
                                 .requestMatchers("/auth/login").permitAll()
                                 .requestMatchers("/auth/register").permitAll()
                                 .requestMatchers("/file/get").permitAll()
+                                .requestMatchers("/tour/add").permitAll()
+                                .requestMatchers("/tour/edit").permitAll()
+                                .requestMatchers("/tourDay/add").permitAll()
+                                .requestMatchers("/tourDay/edit").permitAll()
 
 
                                 .anyRequest().authenticated()

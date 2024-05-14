@@ -56,4 +56,39 @@ public class TourDayServiceImpl implements TourDayService {
 
         return tourDayRepo.getTourDaysByTourId(tourId);
     }
+
+    @Override
+    public void editTourDay(MultipartFile image, String title, String description, UUID tourDayId) {
+        TourDay tourDay = tourDayRepo.findById(tourDayId).orElseThrow();
+        Image imageByTourDay = imageRepo.getImageByTourDay(tourDay);
+        File file = new File(imageByTourDay.getPath());
+        if (file.exists()) {
+            file.delete();
+            imageByTourDay.setTourDay(null);
+            imageRepo.save(imageByTourDay);
+            imageRepo.delete(imageByTourDay);
+        }
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
+        String uniqueFileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+        String filePath = uploadDir + uniqueFileName;
+        try {
+            File uploadFile = new File(filePath);
+            image.transferTo(uploadFile);
+            Image image1 =new Image();
+            image1.setTourDay(tourDay);
+            image1.setName(uniqueFileName);
+            image1.setPath(filePath);
+            imageRepo.save(image1);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to store file " + uniqueFileName, e);
+        }
+
+    }
+
+    @Override
+    public void deletTourDay(UUID tourDayId) {
+        TourDay tourDay = tourDayRepo.findById(tourDayId).orElseThrow();
+        tourDay.setTour(null);
+        imageRepo.deleteImageByTourDayId(tourDayId);
+    }
 }

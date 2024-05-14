@@ -10,4 +10,8 @@ public interface TourDayService {
     void addTourDay(MultipartFile image, String title, String description, UUID tourId);
 
     List<TourDayProjection> getTourDaysByTourId(UUID tourId);
+
+    void editTourDay(MultipartFile image, String title, String description, UUID tourDayId);
+
+    void deletTourDay(UUID tourDayId);
 }

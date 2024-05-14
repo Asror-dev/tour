@@ -10,12 +10,13 @@ import org.example.tour.entity.User;
 import org.example.tour.repository.RoleRepo;
 import org.example.tour.repository.UserRepo;
 import org.example.tour.security.service.JwtService;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
