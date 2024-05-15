@@ -22,6 +22,7 @@ public class Tour {
     private String description;
     private Double price;
     private Integer tourDay;
+    private String info;
 
     @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
     @JsonIgnore

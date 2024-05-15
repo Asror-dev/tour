@@ -24,12 +24,13 @@ public class TourServiceImpl implements TourService{
     private final VideoRepo videoRepo;
     private final TourRepo tourRepo;
     @Override
-    public void addTour(MultipartFile files, MultipartFile video, String title, String description, Double price,Integer tourDay) {
+    public void addTour(MultipartFile files, MultipartFile video, String title, String description, Double price,Integer tourDay,String info) {
         Tour tour = new Tour();
         tour.setTitle(title);
         tour.setDescription(description);
         tour.setPrice(price);
         tour.setTourDay(tourDay);
+        tour.setInfo(info);
         Tour saveTour = tourRepo.save(tour);
         createImage(files,saveTour);
         createVideo(video,saveTour);

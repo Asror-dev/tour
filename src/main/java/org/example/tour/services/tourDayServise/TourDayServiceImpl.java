@@ -89,6 +89,16 @@ public class TourDayServiceImpl implements TourDayService {
     public void deletTourDay(UUID tourDayId) {
         TourDay tourDay = tourDayRepo.findById(tourDayId).orElseThrow();
         tourDay.setTour(null);
-        imageRepo.deleteImageByTourDayId(tourDayId);
+        Image imageByTourDay = imageRepo.getImageByTourDay(tourDay);
+        File file = new File(imageByTourDay.getPath());
+        if (file.exists()) {
+            file.delete();
+
+        }
+        imageByTourDay.setTourDay(null);
+        imageRepo.save(imageByTourDay);
+        imageRepo.delete(imageByTourDay);
+        tourDayRepo.save(tourDay);
+        tourDayRepo.delete(tourDay);
     }
 }
