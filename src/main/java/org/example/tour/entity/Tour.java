@@ -29,7 +29,7 @@ public class Tour {
     private List<TourDay> tourDays;
 
     @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
-    @JsonIgnore
+    @JsonManagedReference
     private List<Video> videos;
 
     @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)

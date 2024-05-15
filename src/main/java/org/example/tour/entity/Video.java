@@ -1,5 +1,6 @@
 package org.example.tour.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -19,9 +20,8 @@ public class Video {
     private String name;
     private String path;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
-    @JsonIgnore
-
+    @JsonBackReference
     private Tour tour;
 }

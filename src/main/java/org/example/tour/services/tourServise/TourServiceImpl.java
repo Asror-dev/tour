@@ -58,7 +58,6 @@ public class TourServiceImpl implements TourService{
             file.transferTo(uploadFile);
             Image image =new Image();
             image.setTourDay(tourDay);
-            image.setTour(tour);
             image.setName(uniqueFileName);
             image.setPath(filePath);
             imageRepo.save(image);
@@ -196,6 +195,7 @@ public class TourServiceImpl implements TourService{
             video.setPath(filePath);
             video.setTour(tour);
             videoRepo.save(video);
+
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to store file " + uniqueFileName, e);
