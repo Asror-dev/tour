@@ -52,4 +52,9 @@ public class CommentServiceImpl implements CommentService {
         commentRepo.save(comment);
     }
 
+    @Override
+    public List<Comment> getAllComments() {
+        return commentRepo.findAll();
+    }
+
 }

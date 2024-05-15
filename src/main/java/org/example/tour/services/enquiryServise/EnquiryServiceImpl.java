@@ -36,4 +36,9 @@ public class EnquiryServiceImpl implements EnquiryService {
         Tour tour = tourRepo.findById(tourId).orElseThrow();
         return enquiryRepo.getEnquirysByTour(tour);
     }
+
+    @Override
+    public List<Enquiry> getAllEnquiry() {
+        return enquiryRepo.findAll();
+    }
 }

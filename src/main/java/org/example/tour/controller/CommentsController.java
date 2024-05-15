@@ -53,4 +53,14 @@ public class CommentsController {
 
         }
     }
+    @GetMapping("/get/all")
+    public ResponseEntity<?> getAllComments(){
+        try {
+            return ResponseEntity.ok(commentService.getAllComments());
+
+        }catch (Exception e){
+            return ResponseEntity.status(500).body("not get");
+
+        }
+    }
 }
