@@ -1,10 +1,12 @@
 package org.example.tour.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity(name = "enquiry")
@@ -23,6 +25,9 @@ public class Enquiry {
 
     @ManyToOne
     @PrimaryKeyJoinColumn
-
     private Tour tour;
+
+    @OneToMany(mappedBy = "enquiry",fetch =FetchType.EAGER)
+    @JsonIgnore
+    private List<EmailMessage> tourDays;
 }

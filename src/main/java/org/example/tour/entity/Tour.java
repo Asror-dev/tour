@@ -26,7 +26,6 @@ public class Tour {
 
     @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
     @JsonIgnore
-
     private List<TourDay> tourDays;
 
     @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
