@@ -85,34 +85,16 @@ public class TourDayServiceImpl implements TourDayService {
     @Override
     public void deletTourDay(UUID tourDayId) {
         TourDay tourDay = tourDayRepo.findById(tourDayId).orElseThrow();
-//        for (Comment comment : commentRepo.getCommentByTour(tourDay.getTour().getId())) {
-//            comment.setTour(null);
-//            commentRepo.save(comment);
-//            commentRepo.delete(comment);
-//        }
-//        for (Enquiry enquiry : enquiryRepo.getEnquiryByTour(tourDay.getTour().getId())) {
-//            enquiry.setTour(null);
-//            enquiryRepo.save(enquiry);
-//            enquiryRepo.delete(enquiry);
-//        }
-//        for (Image image : imageRepo.getImagesByTour(tourDay.getTour().getId())) {
-//            File file = new File(image.getPath());
-//            if (file.exists()) {
-//                file.delete();
-//            }
-//            image.setTourDay(null);
-//            imageRepo.save(image);
-//            imageRepo.delete(image);
-//        }
-//        for (Video video : videoRepo.getVideoByTour(tourDay.getTour().getId())) {
-//            File file = new File(video.getPath());
-//            if (file.exists()) {
-//                file.delete();
-//            }
-//            video.setTour(null);
-//            videoRepo.save(video);
-//            videoRepo.delete(video);
-//        }
-        tourDayRepo.deleteById(tourDayId);
+        for (Image image : imageRepo.getImagesByTourDay(tourDay.getId())) {
+            File file = new File(image.getPath());
+            if (file.exists()) {
+                file.delete();
+            }
+            image.setTourDay(null);
+            image.setTour(null);
+            imageRepo.save(image);
+            imageRepo.delete(image);
+        }
+        tourDayRepo.deleteById(tourDay.getId());
     }
 }

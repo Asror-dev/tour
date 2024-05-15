@@ -22,4 +22,8 @@ public interface ImageRepo extends JpaRepository<Image, UUID> {
     void deleteImageByTourDayId(UUID tourDayId);
     @Query(value = "SELECT * FROM images WHERE tour_id = :tour_id", nativeQuery = true)
     List<Image> getImagesByTour(@Param("tour_id") UUID tour_id);
+
+    @Query(value = "SELECT * FROM images WHERE tour_day_id = :tour_day_id", nativeQuery = true)
+    List<Image> getImagesByTourDay(@Param("tour_day_id") UUID tour_day_id);
+
 }
