@@ -1,9 +1,7 @@
 package org.example.tour.services.tourServise;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.tour.entity.*;
-import org.example.tour.projection.CommentProjection;
 import org.example.tour.repository.*;
 import org.example.tour.entity.Image;
 import org.example.tour.entity.Tour;
@@ -18,9 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -32,7 +28,6 @@ public class TourServiceImpl implements TourService{
     private final CommentRepo commentRepo;
     private final EnquiryRepo enquiryRepo;
     private final  TourDayRepo tourDayRepo;
-    private final TourDayRepo tourDayRepo;
     @Override
     public void addTour(MultipartFile files, MultipartFile video, String title, String description, Double price,Integer tourDay,String info,MultipartFile tourDayImage,String tourDayTitle, String tourDayDescription) {
         Tour tour = new Tour();
