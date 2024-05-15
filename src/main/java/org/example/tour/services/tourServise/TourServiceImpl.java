@@ -5,6 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.example.tour.entity.*;
 import org.example.tour.projection.CommentProjection;
 import org.example.tour.repository.*;
+import org.example.tour.entity.Image;
+import org.example.tour.entity.Tour;
+import org.example.tour.entity.TourDay;
+import org.example.tour.entity.Video;
+import org.example.tour.repository.ImageRepo;
+import org.example.tour.repository.TourDayRepo;
+import org.example.tour.repository.TourRepo;
+import org.example.tour.repository.VideoRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,8 +32,9 @@ public class TourServiceImpl implements TourService{
     private final CommentRepo commentRepo;
     private final EnquiryRepo enquiryRepo;
     private final  TourDayRepo tourDayRepo;
+    private final TourDayRepo tourDayRepo;
     @Override
-    public void addTour(MultipartFile files, MultipartFile video, String title, String description, Double price,Integer tourDay,String info) {
+    public void addTour(MultipartFile files, MultipartFile video, String title, String description, Double price,Integer tourDay,String info,MultipartFile tourDayImage,String tourDayTitle, String tourDayDescription) {
         Tour tour = new Tour();
         tour.setTitle(title);
         tour.setDescription(description);
@@ -33,8 +42,34 @@ public class TourServiceImpl implements TourService{
         tour.setTourDay(tourDay);
         tour.setInfo(info);
         Tour saveTour = tourRepo.save(tour);
+        addTourDay(tourDayImage,tourDayTitle,tourDayDescription,saveTour.getId());
         createImage(files,saveTour);
         createVideo(video,saveTour);
+    }
+    public void addTourDay(MultipartFile file, String title, String description, UUID tourId) {
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
+
+        String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String filePath = uploadDir + uniqueFileName;
+        Tour tour = tourRepo.findById(tourId).orElseThrow();
+        TourDay tourDay = new TourDay();
+        tourDay.setTitle(title);
+        tourDay.setDescription(description);
+        tourDay.setTour(tour);
+        tourDayRepo.save(tourDay);
+
+        try {
+            File uploadFile = new File(filePath);
+            file.transferTo(uploadFile);
+            Image image =new Image();
+            image.setTourDay(tourDay);
+            image.setTour(tour);
+            image.setName(uniqueFileName);
+            image.setPath(filePath);
+            imageRepo.save(image);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to store file " + uniqueFileName, e);
+        }
     }
 
     @Override
@@ -134,7 +169,7 @@ public class TourServiceImpl implements TourService{
 
     private void createImage(MultipartFile files, Tour tour)  {
 
-        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/images/";
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
 
             String uniqueFileName = UUID.randomUUID().toString() + "_" + files.getOriginalFilename();
             String filePath = uploadDir + uniqueFileName;
@@ -155,7 +190,7 @@ public class TourServiceImpl implements TourService{
     }
     private void createVideo(MultipartFile file, Tour tour) {
 
-        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/videos/";
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/videos/";
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {
