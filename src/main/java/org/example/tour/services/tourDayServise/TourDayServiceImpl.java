@@ -1,13 +1,9 @@
 package org.example.tour.services.tourDayServise;
 
 import lombok.RequiredArgsConstructor;
-import org.example.tour.entity.Image;
-import org.example.tour.entity.Tour;
-import org.example.tour.entity.TourDay;
+import org.example.tour.entity.*;
 import org.example.tour.projection.TourDayProjection;
-import org.example.tour.repository.ImageRepo;
-import org.example.tour.repository.TourDayRepo;
-import org.example.tour.repository.TourRepo;
+import org.example.tour.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,10 +19,12 @@ public class TourDayServiceImpl implements TourDayService {
     private final TourDayRepo tourDayRepo;
     private final TourRepo tourRepo;
     private final ImageRepo imageRepo;
-
+    private final CommentRepo commentRepo;
+    private final EnquiryRepo enquiryRepo;
+    private final VideoRepo videoRepo;
     @Override
     public void addTourDay(MultipartFile file, String title, String description, UUID tourId) {
-        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
+        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/images";
 
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
@@ -68,7 +66,7 @@ public class TourDayServiceImpl implements TourDayService {
             imageRepo.save(imageByTourDay);
             imageRepo.delete(imageByTourDay);
         }
-        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
+        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/videos/";
         String uniqueFileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {
@@ -88,17 +86,36 @@ public class TourDayServiceImpl implements TourDayService {
     @Override
     public void deletTourDay(UUID tourDayId) {
         TourDay tourDay = tourDayRepo.findById(tourDayId).orElseThrow();
-        tourDay.setTour(null);
-        Image imageByTourDay = imageRepo.getImageByTourDay(tourDay);
-        File file = new File(imageByTourDay.getPath());
-        if (file.exists()) {
-            file.delete();
-
+        Tour tour = tourRepo.findById(tourDay.getId()).orElseThrow();
+        for (Comment comment : commentRepo.getCommentByTour(tour.getId())) {
+            comment.setTour(null);
+            commentRepo.save(comment);
+            commentRepo.delete(comment);
         }
-        imageByTourDay.setTourDay(null);
-        imageRepo.save(imageByTourDay);
-        imageRepo.delete(imageByTourDay);
-        tourDayRepo.save(tourDay);
-        tourDayRepo.delete(tourDay);
+        for (Enquiry enquiry : enquiryRepo.getEnquiryByTour(tour.getId())) {
+            enquiry.setTour(null);
+            enquiryRepo.save(enquiry);
+            enquiryRepo.delete(enquiry);
+        }
+        for (Image image : imageRepo.getImagesByTour(tour.getId())) {
+            File file = new File(image.getPath());
+            if (file.exists()) {
+                file.delete();
+            }
+            image.setTourDay(null);
+            image.setTour(null);
+            imageRepo.save(image);
+            imageRepo.delete(image);
+        }
+        for (Video video : videoRepo.getVideoByTour(tour.getId())) {
+            File file = new File(video.getPath());
+            if (file.exists()) {
+                file.delete();
+            }
+            video.setTour(null);
+            videoRepo.save(video);
+            videoRepo.delete(video);
+        }
+        tourDayRepo.deleteById(tourDayId);
     }
 }

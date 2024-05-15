@@ -14,6 +14,7 @@ public interface CommentService {
     void addComment(CommentDto dto,UUID tourId);
 
     void changeCommentVisible(UUID commentId);
+    List<CommentProjection> getCommentVisble(Boolean visible);
 
     List<Comment> getAllComments();
 }

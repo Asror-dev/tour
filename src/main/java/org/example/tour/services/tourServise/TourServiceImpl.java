@@ -2,12 +2,9 @@ package org.example.tour.services.tourServise;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.example.tour.entity.Image;
-import org.example.tour.entity.Tour;
-import org.example.tour.entity.Video;
-import org.example.tour.repository.ImageRepo;
-import org.example.tour.repository.TourRepo;
-import org.example.tour.repository.VideoRepo;
+import org.example.tour.entity.*;
+import org.example.tour.projection.CommentProjection;
+import org.example.tour.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -23,6 +21,9 @@ public class TourServiceImpl implements TourService{
     private final ImageRepo imageRepo;
     private final VideoRepo videoRepo;
     private final TourRepo tourRepo;
+    private final CommentRepo commentRepo;
+    private final EnquiryRepo enquiryRepo;
+    private final  TourDayRepo tourDayRepo;
     @Override
     public void addTour(MultipartFile files, MultipartFile video, String title, String description, Double price,Integer tourDay,String info) {
         Tour tour = new Tour();
@@ -62,6 +63,42 @@ public class TourServiceImpl implements TourService{
 
     @Override
     public void deletTour(UUID tourId) {
+        Tour tour = tourRepo.findById(tourId).orElseThrow();
+        for (Comment comment : commentRepo.getCommentByTour(tour.getId())) {
+            comment.setTour(null);
+            commentRepo.save(comment);
+            commentRepo.delete(comment);
+        }
+        for (Enquiry enquiry : enquiryRepo.getEnquiryByTour(tour.getId())) {
+            enquiry.setTour(null);
+            enquiryRepo.save(enquiry);
+            enquiryRepo.delete(enquiry);
+        }
+        for (Image image : imageRepo.getImagesByTour(tour.getId())) {
+            File file = new File(image.getPath());
+            if (file.exists()) {
+                file.delete();
+            }
+            image.setTourDay(null);
+            image.setTour(null);
+            imageRepo.save(image);
+            imageRepo.delete(image);
+        }
+        for (Video video : videoRepo.getVideoByTour(tour.getId())) {
+            File file = new File(video.getPath());
+            if (file.exists()) {
+                file.delete();
+            }
+            video.setTour(null);
+            videoRepo.save(video);
+            videoRepo.delete(video);
+        }
+        for (TourDay tourDay : tourDayRepo.getTourDayByByTour(tour.getId())) {
+            tourDay.setTour(null);
+            tourDayRepo.save(tourDay);
+            tourDayRepo.delete(tourDay);
+        }
+        tourRepo.deleteById(tourId);
 
     }
 
@@ -97,7 +134,7 @@ public class TourServiceImpl implements TourService{
 
     private void createImage(MultipartFile files, Tour tour)  {
 
-        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
+        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/images/";
 
             String uniqueFileName = UUID.randomUUID().toString() + "_" + files.getOriginalFilename();
             String filePath = uploadDir + uniqueFileName;
@@ -118,7 +155,7 @@ public class TourServiceImpl implements TourService{
     }
     private void createVideo(MultipartFile file, Tour tour) {
 
-        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/videos/";
+        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/videos/";
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {

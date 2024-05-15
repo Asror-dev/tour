@@ -9,12 +9,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 @Repository
 public interface CommentRepo extends JpaRepository<Comment, UUID> {
 
 
     List<CommentProjection> getCommentsByTour(Tour tour);
+//    @Query("select ")
+//    List<CommentProjection> findCommentByTourId(UUID tourId);
+@Query(value = "SELECT * FROM comments WHERE tour_id = :tour_id", nativeQuery = true)
+List<Comment> getCommentByTour(@Param("tour_id") UUID tour_id);
 
+@Query(value = "select * from comments where visible=:visible",nativeQuery = true)
+    List<CommentProjection> getCommentsVisible(@Param("visible")Boolean visible);
 
 }

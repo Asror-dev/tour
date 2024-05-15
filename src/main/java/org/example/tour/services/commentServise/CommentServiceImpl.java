@@ -57,4 +57,9 @@ public class CommentServiceImpl implements CommentService {
         return commentRepo.findAll();
     }
 
+    @Override
+    public List<CommentProjection> getCommentVisble(Boolean visible) {
+        return commentRepo.getCommentsVisible(visible);
+    }
+
 }

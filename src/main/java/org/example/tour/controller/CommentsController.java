@@ -2,10 +2,12 @@ package org.example.tour.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.tour.dto.CommentDto;
+import org.example.tour.projection.CommentProjection;
 import org.example.tour.services.commentServise.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -47,6 +49,17 @@ public class CommentsController {
         try {
             commentService.changeCommentVisible(commentId);
             return ResponseEntity.ok("change");
+
+        }catch (Exception e){
+            return ResponseEntity.status(500).body("not change");
+
+        }
+    }
+    @GetMapping("/visible")
+    public ResponseEntity<?> CommentVisible(@RequestParam Boolean visible){
+        try {
+            List<CommentProjection> commentVisble = commentService.getCommentVisble(visible);
+            return ResponseEntity.ok(commentVisble);
 
         }catch (Exception e){
             return ResponseEntity.status(500).body("not change");
