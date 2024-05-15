@@ -86,18 +86,17 @@ public class TourDayServiceImpl implements TourDayService {
     @Override
     public void deletTourDay(UUID tourDayId) {
         TourDay tourDay = tourDayRepo.findById(tourDayId).orElseThrow();
-        Tour tour = tourRepo.findById(tourDay.getId()).orElseThrow();
-        for (Comment comment : commentRepo.getCommentByTour(tour.getId())) {
+        for (Comment comment : commentRepo.getCommentByTour(tourDay.getTour().getId())) {
             comment.setTour(null);
             commentRepo.save(comment);
             commentRepo.delete(comment);
         }
-        for (Enquiry enquiry : enquiryRepo.getEnquiryByTour(tour.getId())) {
+        for (Enquiry enquiry : enquiryRepo.getEnquiryByTour(tourDay.getTour().getId())) {
             enquiry.setTour(null);
             enquiryRepo.save(enquiry);
             enquiryRepo.delete(enquiry);
         }
-        for (Image image : imageRepo.getImagesByTour(tour.getId())) {
+        for (Image image : imageRepo.getImagesByTour(tourDay.getTour().getId())) {
             File file = new File(image.getPath());
             if (file.exists()) {
                 file.delete();
@@ -107,7 +106,7 @@ public class TourDayServiceImpl implements TourDayService {
             imageRepo.save(image);
             imageRepo.delete(image);
         }
-        for (Video video : videoRepo.getVideoByTour(tour.getId())) {
+        for (Video video : videoRepo.getVideoByTour(tourDay.getTour().getId())) {
             File file = new File(video.getPath());
             if (file.exists()) {
                 file.delete();
