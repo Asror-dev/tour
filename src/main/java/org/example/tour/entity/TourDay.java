@@ -2,6 +2,7 @@
 
     import com.fasterxml.jackson.annotation.JsonIgnore;
     import jakarta.persistence.*;
+    import jakarta.validation.constraints.NotEmpty;
     import lombok.AllArgsConstructor;
     import lombok.Data;
     import lombok.NoArgsConstructor;
@@ -17,7 +18,9 @@
         @Id
         @GeneratedValue(strategy = GenerationType.UUID)
         private UUID id;
+        @NotEmpty
         private String title;
+        @NotEmpty
         private String description;
 
         @ManyToOne

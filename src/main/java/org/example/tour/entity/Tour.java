@@ -3,6 +3,7 @@ package org.example.tour.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
 import java.util.List;
@@ -18,8 +19,11 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @NotEmpty
     private String title;
+    @NotEmpty
     private String description;
+    @NotEmpty
     private Double price;
     private Integer tourDay;
     private String info;
