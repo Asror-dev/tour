@@ -6,6 +6,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.tour.entity.enums.Language;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -30,18 +31,14 @@ public class User implements UserDetails {
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,15}$", message = "Phone number is not valid")
     private String phone;
     private String password;
-
-
-
+    @Enumerated(EnumType.STRING)
+    private Language language;
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
-
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
     }
-
 
     @Override
     public String getUsername() {

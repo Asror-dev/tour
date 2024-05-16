@@ -33,19 +33,21 @@ public class Filter extends OncePerRequestFilter {
     private final UserRepo userRepo;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String authorization = request.getHeader("key");
-        if(authorization!=null){
-            Jws<Claims> claimsJws = jwtService.extractJwt(authorization);
-            Claims user = claimsJws.getPayload();
-            String id = user.getSubject();
-            User user1 = userRepo.findById(UUID.fromString(id)).get();
-            UsernamePasswordAuthenticationToken usn = new UsernamePasswordAuthenticationToken(
-                    user1.getPhone(),
-                    user1.getPassword(),
-                    user1.getAuthorities()
-            );
-            SecurityContextHolder.getContext().setAuthentication(usn);
-        }
+        try{
+            String authorization = request.getHeader("key");
+            if(authorization!=null){
+                Jws<Claims> claimsJws = jwtService.extractJwt(authorization);
+                Claims user = claimsJws.getPayload();
+                String id = user.getSubject();
+                User user1 = userRepo.findById(UUID.fromString(id)).get();
+                UsernamePasswordAuthenticationToken usn = new UsernamePasswordAuthenticationToken(
+                        user1.getPhone(),
+                        user1.getPassword(),
+                        user1.getAuthorities()
+                );
+                SecurityContextHolder.getContext().setAuthentication(usn);
+            }
+        }catch(Exception ignored){}
         filterChain.doFilter(request,response);
     }
 }

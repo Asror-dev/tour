@@ -7,6 +7,7 @@ import org.example.tour.dto.LoginDto;
 import org.example.tour.dto.RegisterDto;
 import org.example.tour.entity.Role;
 import org.example.tour.entity.User;
+import org.example.tour.entity.enums.Language;
 import org.example.tour.repository.RoleRepo;
 import org.example.tour.repository.UserRepo;
 import org.example.tour.security.service.JwtService;
@@ -70,10 +71,12 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
-
-
-
+    @Override
+    public void changeUserLanguage(Language language,UUID userId) {
+        User user = userRepo.findById(userId).orElseThrow();
+        user.setLanguage(language);
+        userRepo.save(user);
+    }
 
 
 }
