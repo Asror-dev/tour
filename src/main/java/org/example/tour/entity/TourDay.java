@@ -6,6 +6,7 @@
     import lombok.AllArgsConstructor;
     import lombok.Data;
     import lombok.NoArgsConstructor;
+    import org.example.tour.entity.enums.Language;
 
     import java.util.List;
     import java.util.UUID;
@@ -22,6 +23,8 @@
         private String title;
         @NotEmpty
         private String description;
+        @Enumerated(EnumType.STRING)
+        private Language lang;
 
         @ManyToOne
         @PrimaryKeyJoinColumn

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+import org.example.tour.entity.enums.Language;
 
 import java.util.List;
 import java.util.UUID;
@@ -23,10 +24,12 @@ public class Tour {
     private String title;
     @NotEmpty
     private String description;
-    @NotEmpty
+
     private Double price;
     private Integer tourDay;
     private String info;
+    @Enumerated(EnumType.STRING)
+    private Language lang;
 
     @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
     @JsonIgnore

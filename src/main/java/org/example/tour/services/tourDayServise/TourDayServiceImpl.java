@@ -2,6 +2,7 @@ package org.example.tour.services.tourDayServise;
 
 import lombok.RequiredArgsConstructor;
 import org.example.tour.entity.*;
+import org.example.tour.entity.enums.Language;
 import org.example.tour.projection.TourDayProjection;
 import org.example.tour.repository.*;
 import org.springframework.stereotype.Service;
@@ -19,12 +20,10 @@ public class TourDayServiceImpl implements TourDayService {
     private final TourDayRepo tourDayRepo;
     private final TourRepo tourRepo;
     private final ImageRepo imageRepo;
-    private final CommentRepo commentRepo;
-    private final EnquiryRepo enquiryRepo;
-    private final VideoRepo videoRepo;
+
     @Override
-    public void addTourDay(MultipartFile file, String title, String description, UUID tourId) {
-        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/images";
+    public void addTourDay(MultipartFile file, String title, String description, UUID tourId, Language lang) {
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
 
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
@@ -32,6 +31,7 @@ public class TourDayServiceImpl implements TourDayService {
         TourDay tourDay = new TourDay();
         tourDay.setTitle(title);
         tourDay.setDescription(description);
+        tourDay.setLang(lang);
         tourDayRepo.save(tourDay);
 
         try {
@@ -39,7 +39,6 @@ public class TourDayServiceImpl implements TourDayService {
             file.transferTo(uploadFile);
             Image image =new Image();
             image.setTourDay(tourDay);
-            image.setTour(tour);
             image.setName(uniqueFileName);
             image.setPath(filePath);
             imageRepo.save(image);
@@ -49,14 +48,18 @@ public class TourDayServiceImpl implements TourDayService {
     }
 
     @Override
-    public List<TourDayProjection> getTourDaysByTourId(UUID tourId) {
+    public List<TourDayProjection> getTourDaysByTourId(UUID tourId,Language lang) {
 
-        return tourDayRepo.getTourDaysByTourId(tourId);
+        return tourDayRepo.getTourDaysByTourId(tourId,lang);
     }
 
     @Override
-    public void editTourDay(MultipartFile image, String title, String description, UUID tourDayId) {
-        TourDay tourDay = tourDayRepo.findById(tourDayId).orElseThrow();
+    public void editTourDay(MultipartFile image, String title, String description, UUID tourDayId,Language lang) {
+        TourDay tourDay1 = tourDayRepo.findById(tourDayId).orElseThrow();
+        tourDay1.setLang(lang);
+        tourDay1.setTitle(title);
+        tourDay1.setDescription(description);
+        TourDay tourDay = tourDayRepo.save(tourDay1);
         Image imageByTourDay = imageRepo.getImageByTourDay(tourDay);
         File file = new File(imageByTourDay.getPath());
         if (file.exists()) {
@@ -65,7 +68,7 @@ public class TourDayServiceImpl implements TourDayService {
             imageRepo.save(imageByTourDay);
             imageRepo.delete(imageByTourDay);
         }
-        String uploadDir = "D:/Spring/tour/src/main/java/org/example/tour/uploads/videos/";
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/videos/";
         String uniqueFileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {

@@ -1,6 +1,7 @@
 package org.example.tour.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.tour.entity.enums.Language;
 import org.example.tour.services.tourDayServise.TourDayService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,27 +16,27 @@ public class TourDayController {
     private final TourDayService tourDayService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addTourDay(@RequestParam(required = false) MultipartFile image, @RequestParam String title,@RequestParam String description, @RequestParam UUID tourId){
+    public ResponseEntity<?> addTourDay(@RequestParam(required = false) MultipartFile image, @RequestParam String title, @RequestParam String description, @RequestParam UUID tourId, @RequestParam Language lang){
         try {
-            tourDayService.addTourDay(image, title,description, tourId);
+            tourDayService.addTourDay(image, title,description, tourId,lang);
             return ResponseEntity.ok("TourDay added successfully");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     @GetMapping("/get")
-    public ResponseEntity<?> getTourDaysByTourId(@RequestParam UUID tourId){
+    public ResponseEntity<?> getTourDaysByTourId(@RequestParam UUID tourId,@RequestParam Language lang){
         try {
-            return ResponseEntity.ok(tourDayService.getTourDaysByTourId(tourId));
+            return ResponseEntity.ok(tourDayService.getTourDaysByTourId(tourId,lang));
 
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     @PutMapping("/edit")
-    public ResponseEntity<?> editTourDay(@RequestParam(required = false) MultipartFile image, @RequestParam String title,@RequestParam String description, @RequestParam UUID tourDayId){
+    public ResponseEntity<?> editTourDay(@RequestParam(required = false) MultipartFile image, @RequestParam String title,@RequestParam String description, @RequestParam UUID tourDayId,@RequestParam Language lang){
         try {
-            tourDayService.editTourDay(image, title,description, tourDayId);
+            tourDayService.editTourDay(image, title,description, tourDayId,lang);
             return ResponseEntity.ok("TourDay edited successfully");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

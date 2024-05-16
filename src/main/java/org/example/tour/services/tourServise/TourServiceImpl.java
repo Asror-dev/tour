@@ -2,6 +2,7 @@ package org.example.tour.services.tourServise;
 
 import lombok.RequiredArgsConstructor;
 import org.example.tour.entity.*;
+import org.example.tour.entity.enums.Language;
 import org.example.tour.repository.*;
 import org.example.tour.entity.Image;
 import org.example.tour.entity.Tour;
@@ -29,55 +30,31 @@ public class TourServiceImpl implements TourService{
     private final EnquiryRepo enquiryRepo;
     private final  TourDayRepo tourDayRepo;
     @Override
-    public void addTour(MultipartFile files, MultipartFile video, String title, String description, Double price,Integer tourDay,String info,MultipartFile tourDayImage,String tourDayTitle, String tourDayDescription) {
+    public void addTour(MultipartFile files, MultipartFile video, String title, String description, Double price, Integer tourDay, String info, Language lang) {
         Tour tour = new Tour();
         tour.setTitle(title);
         tour.setDescription(description);
         tour.setPrice(price);
         tour.setTourDay(tourDay);
         tour.setInfo(info);
+        tour.setLang(lang);
         Tour saveTour = tourRepo.save(tour);
-        addTourDay(tourDayImage,tourDayTitle,tourDayDescription,saveTour.getId());
         createImage(files,saveTour);
         createVideo(video,saveTour);
     }
-    public void addTourDay(MultipartFile file, String title, String description, UUID tourId) {
-        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
 
-        String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-        String filePath = uploadDir + uniqueFileName;
-        Tour tour = tourRepo.findById(tourId).orElseThrow();
-        TourDay tourDay = new TourDay();
-        tourDay.setTitle(title);
-        tourDay.setDescription(description);
-        tourDay.setTour(tour);
-        tourDayRepo.save(tourDay);
-
-        try {
-            File uploadFile = new File(filePath);
-            file.transferTo(uploadFile);
-            Image image =new Image();
-            image.setTourDay(tourDay);
-            image.setName(uniqueFileName);
-            image.setPath(filePath);
-            imageRepo.save(image);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to store file " + uniqueFileName, e);
-        }
+    @Override
+    public List<Tour> getAllTours(Language lang) {
+        return tourRepo.getToursByLang(lang);
     }
 
     @Override
-    public List<Tour> getAllTours() {
-        return tourRepo.findAll();
+    public Tour getTourById(UUID tourId,Language lang) {
+        return tourRepo.getTourByIdAndLang(tourId,lang);
     }
 
     @Override
-    public Tour getTourById(UUID tourId) {
-        return tourRepo.findById(tourId).orElseThrow();
-    }
-
-    @Override
-    public void editTour(MultipartFile image, MultipartFile video, String title, String description, Double price, UUID tourId) {
+    public void editTour(MultipartFile image, MultipartFile video, String title, String description, Double price, UUID tourId,Language lang) {
         Tour tour = tourRepo.findById(tourId).orElseThrow();
 
         updateVideo(tour, video);
@@ -85,6 +62,7 @@ public class TourServiceImpl implements TourService{
         tour.setTitle(title);
         tour.setDescription(description);
         tour.setPrice(price);
+        tour.setLang(lang);
         tourRepo.save(tour);
         createVideo(video,tour);
         createImage(image,tour);
