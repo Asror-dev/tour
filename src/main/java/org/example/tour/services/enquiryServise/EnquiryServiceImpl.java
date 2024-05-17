@@ -41,4 +41,9 @@ public class EnquiryServiceImpl implements EnquiryService {
     public List<Enquiry> getAllEnquiry() {
         return enquiryRepo.findAll();
     }
+
+    @Override
+    public List<Enquiry> getEnquirues() {
+        return enquiryRepo.findAll();
+    }
 }

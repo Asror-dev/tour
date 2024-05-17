@@ -12,4 +12,6 @@ public interface EnquiryService {
     List<EnquiryProjection> getEnquiryByTourId(UUID tourId);
 
     List<Enquiry> getAllEnquiry();
+
+    List<Enquiry> getEnquirues();
 }
