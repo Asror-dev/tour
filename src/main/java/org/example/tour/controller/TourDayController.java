@@ -1,6 +1,7 @@
 package org.example.tour.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.example.tour.entity.enums.Language;
 import org.example.tour.services.tourDayServise.TourDayService;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,9 @@ public class TourDayController {
         try {
             tourDayService.addTourDay(image, title,description, tourId,lang);
             return ResponseEntity.ok("TourDay added successfully");
-        } catch (Exception e) {
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        } catch (BadRequestException e) {
             throw new RuntimeException(e);
         }
     }

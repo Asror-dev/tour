@@ -30,6 +30,7 @@ public class Enquiry {
     private String email;
     private String text;
 
+
     @ManyToOne
     @PrimaryKeyJoinColumn
     private Tour tour;

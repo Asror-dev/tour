@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
         );
         String jwt = jwtService.generateJwt(id.toString());
         String refreshJwt = jwtService.generateRefreshJwt(id.toString());
-        return Map.of("access_token", jwt, "refresh_token", refreshJwt);
+        return Map.of("access_token", jwt, "refresh_token", refreshJwt,"userId",user.getId());
     }
 
 

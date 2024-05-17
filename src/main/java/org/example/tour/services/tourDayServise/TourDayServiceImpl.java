@@ -1,6 +1,7 @@
 package org.example.tour.services.tourDayServise;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.example.tour.entity.*;
 import org.example.tour.entity.enums.Language;
 import org.example.tour.projection.TourDayProjection;
@@ -22,29 +23,34 @@ public class TourDayServiceImpl implements TourDayService {
     private final ImageRepo imageRepo;
 
     @Override
-    public void addTourDay(MultipartFile file, String title, String description, UUID tourId, Language lang) {
+    public void addTourDay(MultipartFile file, String title, String description, UUID tourId, Language lang) throws BadRequestException {
         String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
 
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         Tour tour = tourRepo.findById(tourId).orElseThrow();
-        TourDay tourDay = new TourDay();
-        tourDay.setTitle(title);
-        tourDay.setDescription(description);
-        tourDay.setLang(lang);
-        tourDayRepo.save(tourDay);
-
-        try {
-            File uploadFile = new File(filePath);
-            file.transferTo(uploadFile);
-            Image image =new Image();
-            image.setTourDay(tourDay);
-            image.setName(uniqueFileName);
-            image.setPath(filePath);
-            imageRepo.save(image);
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to store file " + uniqueFileName, e);
+        if (tour.getLang().equals(lang)) {
+            TourDay tourDay = new TourDay();
+            tourDay.setTitle(title);
+            tourDay.setDescription(description);
+            tourDay.setLang(lang);
+            tourDayRepo.save(tourDay);
+            try {
+                File uploadFile = new File(filePath);
+                file.transferTo(uploadFile);
+                Image image =new Image();
+                image.setTourDay(tourDay);
+                image.setName(uniqueFileName);
+                image.setPath(filePath);
+                imageRepo.save(image);
+            } catch (IOException e) {
+                throw new RuntimeException("Failed to store file " + uniqueFileName, e);
+            }
+        }else {
+            throw new BadRequestException("Tour ning tilini Tourdayniki bilan bir xil emas");
         }
+
+
     }
 
     @Override
