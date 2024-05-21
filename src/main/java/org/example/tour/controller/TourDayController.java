@@ -17,29 +17,35 @@ public class TourDayController {
     private final TourDayService tourDayService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addTourDay(@RequestParam(required = false) MultipartFile image, @RequestParam String title, @RequestParam String description, @RequestParam UUID tourId, @RequestParam Language lang){
+    public ResponseEntity<?> addTourDay(@RequestParam(required = false) MultipartFile image, @RequestParam String title, @RequestParam String description, @RequestParam UUID tourId, @RequestHeader("lang") Language lang){
         try {
             tourDayService.addTourDay(image, title,description, tourId,lang);
             return ResponseEntity.ok("TourDay added successfully");
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        } catch (BadRequestException e) {
+        } catch (RuntimeException | BadRequestException e) {
             throw new RuntimeException(e);
         }
     }
     @GetMapping("/get")
-    public ResponseEntity<?> getTourDaysByTourId(@RequestParam UUID tourId,@RequestParam Language lang){
+    public ResponseEntity<?> getTourDaysByTourId(@RequestParam UUID tourId,@RequestHeader("lang") Language lang){
         try {
             return ResponseEntity.ok(tourDayService.getTourDaysByTourId(tourId,lang));
-
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     @PutMapping("/edit")
-    public ResponseEntity<?> editTourDay(@RequestParam(required = false) MultipartFile image, @RequestParam String title,@RequestParam String description, @RequestParam UUID tourDayId,@RequestParam Language lang){
+    public ResponseEntity<?> editTourDay(@RequestParam String title,@RequestParam String description, @RequestParam UUID id){
         try {
-            tourDayService.editTourDay(image, title,description, tourDayId,lang);
+            tourDayService.editTourDay(title,description, id);
+            return ResponseEntity.ok("TourDay edited successfully");
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @PutMapping("/edit/withImage")
+    public ResponseEntity<?> editTourDayWithImage(@RequestParam(required = false) MultipartFile image, @RequestParam String title,@RequestParam String description, @RequestParam UUID id){
+        try {
+            tourDayService.editTourDayWithImage(image, title,description, id);
             return ResponseEntity.ok("TourDay edited successfully");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

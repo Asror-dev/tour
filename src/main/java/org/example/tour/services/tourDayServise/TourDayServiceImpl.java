@@ -24,7 +24,7 @@ public class TourDayServiceImpl implements TourDayService {
 
     @Override
     public void addTourDay(MultipartFile file, String title, String description, UUID tourId, Language lang) throws BadRequestException {
-        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
+        String uploadDir = "C:/Users/User/Desktop/tour/uploads/images/";
 
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
@@ -34,6 +34,7 @@ public class TourDayServiceImpl implements TourDayService {
             tourDay.setTitle(title);
             tourDay.setDescription(description);
             tourDay.setLang(lang);
+            tourDay.setTour(tour);
             tourDayRepo.save(tourDay);
             try {
                 File uploadFile = new File(filePath);
@@ -54,15 +55,13 @@ public class TourDayServiceImpl implements TourDayService {
     }
 
     @Override
-    public List<TourDayProjection> getTourDaysByTourId(UUID tourId,Language lang) {
-
-        return tourDayRepo.getTourDaysByTourId(tourId,lang);
+    public List<TourDay> getTourDaysByTourId(UUID tourId,Language lang) {
+        return tourDayRepo.getTourDaysByTour_IdAndAndLang(tourId,lang);
     }
 
     @Override
-    public void editTourDay(MultipartFile image, String title, String description, UUID tourDayId,Language lang) {
+    public void editTourDayWithImage(MultipartFile image, String title, String description, UUID tourDayId) {
         TourDay tourDay1 = tourDayRepo.findById(tourDayId).orElseThrow();
-        tourDay1.setLang(lang);
         tourDay1.setTitle(title);
         tourDay1.setDescription(description);
         TourDay tourDay = tourDayRepo.save(tourDay1);
@@ -74,7 +73,7 @@ public class TourDayServiceImpl implements TourDayService {
             imageRepo.save(imageByTourDay);
             imageRepo.delete(imageByTourDay);
         }
-        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/videos/";
+        String uploadDir = "C:/Users/User/Desktop/tour/uploads/videos/";
         String uniqueFileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {
@@ -89,6 +88,14 @@ public class TourDayServiceImpl implements TourDayService {
             throw new RuntimeException("Failed to store file " + uniqueFileName, e);
         }
 
+    }
+
+    @Override
+    public void editTourDay(String title, String description, UUID tourDayId) {
+        TourDay tourDay1 = tourDayRepo.findById(tourDayId).orElseThrow();
+        tourDay1.setTitle(title);
+        tourDay1.setDescription(description);
+        tourDayRepo.save(tourDay1);
     }
 
     @Override

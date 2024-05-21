@@ -14,11 +14,12 @@ import java.util.UUID;
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
+
     private final UserService userService;
-    @PutMapping
-    private ResponseEntity<?> changeLanguage(@RequestParam Language lan,@RequestHeader(value = "userId") UUID userId){
+    @PutMapping("/lang")
+    private ResponseEntity<?> changeLanguage(@RequestParam Language lang,@RequestParam UUID userId){
         try {
-            userService.changeUserLanguage(lan,userId);
+            userService.changeUserLanguage(lang,userId);
             return ResponseEntity.ok().build();
         }catch (Exception e){
             return ResponseEntity.internalServerError().build();

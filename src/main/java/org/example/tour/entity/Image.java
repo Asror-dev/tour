@@ -26,8 +26,9 @@ public class Image {
     @PrimaryKeyJoinColumn
     @JsonBackReference
     private Tour tour;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
+    @JsonBackReference
     private TourDay tourDay;
 
 

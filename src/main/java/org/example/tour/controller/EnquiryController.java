@@ -34,11 +34,10 @@ public class EnquiryController {
 
         }
     }
-    @GetMapping("/get/all")
+    @GetMapping("/getAll")
     public ResponseEntity<?> getEnquiries(){
         try {
             return ResponseEntity.ok(enquiryService.getEnquirues());
-
         }catch (Exception e){
             return ResponseEntity.status(500).body("not get");
 

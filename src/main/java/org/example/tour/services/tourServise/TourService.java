@@ -13,9 +13,15 @@ public interface TourService {
 
     List<Tour> getAllTours(Language lang);
 
-    Tour getTourById(UUID tourId,Language lang);
+    Tour getTourById(UUID tourId, Language lang);
 
-    void editTour(MultipartFile image, MultipartFile video, String title, String description, Double price, UUID tourId,Language lang) throws IOException;
+    void editTour(String title, String description, Double price, UUID tourId, Integer tourDay,String info,Language lang) throws IOException;
+
+    void editTourWithImage(MultipartFile image, String title, String description, Double price, UUID tourId, Integer tourDay,String info,Language lang) throws IOException;
+
+    void editTourWithVideo(MultipartFile video, String title, String description, Double price, UUID tourId, Integer tourDay,String info,Language lang) throws IOException;
+
+    void editTourVideoAndImage(MultipartFile image, MultipartFile video, String title, String description, Double price, UUID tourId, Integer tourDay,String info,Language lang) throws IOException;
 
     void deletTour(UUID tourId);
 }
