@@ -113,4 +113,9 @@ public class TourDayServiceImpl implements TourDayService {
         }
         tourDayRepo.deleteById(tourDay.getId());
     }
+
+    @Override
+    public Integer getCountOfTourDaysByTourId(UUID tourId) {
+        return tourDayRepo.countAllByTour_Id(tourId);
+    }
 }

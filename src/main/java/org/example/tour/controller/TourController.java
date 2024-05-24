@@ -1,6 +1,7 @@
 package org.example.tour.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.example.tour.entity.Tour;
 import org.example.tour.entity.enums.Language;
 import org.example.tour.services.tourServise.TourService;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +21,9 @@ public class TourController {
     @PostMapping("/add")
     public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile images, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer tourDay, @RequestParam String info, @RequestHeader("lang") Language lang) {
         try {
-            tourService.addTour(images, video, title, description, price, tourDay, info, lang
+            Tour tour = tourService.addTour(images, video, title, description, price, tourDay, info, lang
             );
-            return ResponseEntity.ok("Tour added successfully");
+            return ResponseEntity.ok(tour);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -32,7 +32,6 @@ public class SecurityConfig {
     private final UserRepo userRepo;
     private final Filter filter;
 
-
     @Bean
 public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors(Customizer.withDefaults())
@@ -42,14 +41,7 @@ public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws
                                 .requestMatchers("/auth/login").permitAll()
                                 .requestMatchers("/auth/register").permitAll()
                                 .requestMatchers("/file/get").permitAll()
-                                .requestMatchers("/tour/add").permitAll()
-                                .requestMatchers("/tour/edit").permitAll()
-                                .requestMatchers("/tourDay/add").permitAll()
-                                .requestMatchers("/tourDay/edit").permitAll()
                                 .requestMatchers("/**").permitAll()
-                                .requestMatchers("/**").permitAll()
-
-
                                 .anyRequest().authenticated()
                 ).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 

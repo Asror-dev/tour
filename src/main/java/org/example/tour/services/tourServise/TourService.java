@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TourService {
-    void addTour(MultipartFile images, MultipartFile video, String title, String description, Double price, Integer tourDay, String info, Language lang) throws IOException;
+    Tour addTour(MultipartFile images, MultipartFile video, String title, String description, Double price, Integer tourDay, String info, Language lang) throws IOException;
 
     List<Tour> getAllTours(Language lang);
 

@@ -23,7 +23,7 @@ public class  TourServiceImpl implements TourService {
     private final TourDayRepo tourDayRepo;
 
     @Override
-    public void addTour(MultipartFile files, MultipartFile video, String title, String description, Double price, Integer tourDay, String info, Language lang) {
+    public Tour addTour(MultipartFile files, MultipartFile video, String title, String description, Double price, Integer tourDay, String info, Language lang) {
         Tour tour = new Tour();
         tour.setTitle(title);
         tour.setDescription(description);
@@ -34,6 +34,7 @@ public class  TourServiceImpl implements TourService {
         Tour saveTour = tourRepo.save(tour);
         createImage(files, saveTour);
         createVideo(video, saveTour);
+        return saveTour;
     }
 
     @Override
