@@ -20,7 +20,7 @@ public class CommentServiceImpl implements CommentService {
     private final TourRepo tourRepo;
 
     @Override
-    public List<CommentProjection> getCommentsByTourId(UUID tourId) {
+    public List<Comment> getCommentsByTourId(UUID tourId) {
         Tour tour = tourRepo.findById(tourId).orElseThrow();
         return commentRepo.getCommentsByTour(tour);
     }
@@ -58,7 +58,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public List<CommentProjection> getCommentVisble(Boolean visible) {
+    public List<Comment> getCommentVisble(Boolean visible) {
         return commentRepo.getCommentsVisible(visible);
     }
 

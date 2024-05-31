@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CommentService {
-    List<CommentProjection> getCommentsByTourId(UUID tourId);
+    List<Comment> getCommentsByTourId(UUID tourId);
     void deletComment(UUID commentId);
 
     void addComment(CommentDto dto,UUID tourId);
 
     void changeCommentVisible(UUID commentId);
-    List<CommentProjection> getCommentVisble(Boolean visible);
+    List<Comment> getCommentVisble(Boolean visible);
 
     List<Comment> getAllComments();
 }

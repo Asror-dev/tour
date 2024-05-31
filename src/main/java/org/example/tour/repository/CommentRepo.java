@@ -15,13 +15,13 @@ import java.util.UUID;
 public interface CommentRepo extends JpaRepository<Comment, UUID> {
 
 
-    List<CommentProjection> getCommentsByTour(Tour tour);
+    List<Comment> getCommentsByTour(Tour tour);
 //    @Query("select ")
 //    List<CommentProjection> findCommentByTourId(UUID tourId);
 @Query(value = "SELECT * FROM comments WHERE tour_id = :tour_id", nativeQuery = true)
 List<Comment> getCommentByTour(@Param("tour_id") UUID tour_id);
 
 @Query(value = "select * from comments where visible=:visible",nativeQuery = true)
-    List<CommentProjection> getCommentsVisible(@Param("visible")Boolean visible);
+    List<Comment> getCommentsVisible(@Param("visible")Boolean visible);
 
 }

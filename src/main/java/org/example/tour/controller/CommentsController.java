@@ -2,6 +2,7 @@ package org.example.tour.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.tour.dto.CommentDto;
+import org.example.tour.entity.Comment;
 import org.example.tour.projection.CommentProjection;
 import org.example.tour.services.commentServise.CommentService;
 import org.springframework.http.ResponseEntity;
@@ -58,7 +59,7 @@ public class CommentsController {
     @GetMapping("/visible")
     public ResponseEntity<?> CommentVisible(@RequestParam Boolean visible){
         try {
-            List<CommentProjection> commentVisble = commentService.getCommentVisble(visible);
+            List<Comment> commentVisble = commentService.getCommentVisble(visible);
             return ResponseEntity.ok(commentVisble);
 
         }catch (Exception e){
