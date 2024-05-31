@@ -25,6 +25,16 @@ public class CommentsController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @GetMapping("/getByVisibleAndTourId")
+    public ResponseEntity<?> getAllCommentsByVisibleAndTourId(@RequestParam UUID tourId,Boolean visible){
+        try {
+            List<Comment> commentsByTourIdAndVisibles = commentService.getCommentsByTourIdAndVisibles(tourId, visible);
+            return ResponseEntity.ok(commentsByTourIdAndVisibles);
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
+    }
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteComment(@RequestParam UUID commentId){
         try {

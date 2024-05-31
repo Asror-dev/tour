@@ -24,4 +24,7 @@ List<Comment> getCommentByTour(@Param("tour_id") UUID tour_id);
 @Query(value = "select * from comments where visible=:visible",nativeQuery = true)
     List<Comment> getCommentsVisible(@Param("visible")Boolean visible);
 
+    @Query(value = "select * from comments where tour_id=:tourId and visible=:visible",nativeQuery = true)
+    List<Comment> getCommentsByTourIdAndVisible(@Param("tourId")UUID tourId,@Param("visible")Boolean visible);
+
 }

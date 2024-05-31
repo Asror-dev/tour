@@ -17,4 +17,5 @@ public interface CommentService {
     List<Comment> getCommentVisble(Boolean visible);
 
     List<Comment> getAllComments();
+    List<Comment> getCommentsByTourIdAndVisibles(UUID tourId,boolean visible);
 }

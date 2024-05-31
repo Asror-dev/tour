@@ -40,12 +40,12 @@ public class Tour {
     private List<Video> videos;
 
     @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
-    @JsonManagedReference
+        @JsonManagedReference
     private List<Image> images;
 
     @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
     @JsonIgnore
-
+    
     private List<Comment> comments;
 
     @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)

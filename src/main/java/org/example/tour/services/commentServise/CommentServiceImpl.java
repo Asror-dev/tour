@@ -58,6 +58,11 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    public List<Comment> getCommentsByTourIdAndVisibles(UUID tourId, boolean visible) {
+        return commentRepo.getCommentsByTourIdAndVisible(tourId, visible);
+    }
+
+    @Override
     public List<Comment> getCommentVisble(Boolean visible) {
         return commentRepo.getCommentsVisible(visible);
     }

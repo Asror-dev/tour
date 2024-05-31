@@ -24,7 +24,7 @@ public class TourDayServiceImpl implements TourDayService {
 
     @Override
     public void addTourDay(MultipartFile file, String title, String description, UUID tourId, Language lang) throws BadRequestException {
-        String uploadDir = "C:/Users/User/Desktop/tour/uploads/images/";
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
 
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
@@ -73,7 +73,7 @@ public class TourDayServiceImpl implements TourDayService {
             imageRepo.save(imageByTourDay);
             imageRepo.delete(imageByTourDay);
         }
-        String uploadDir = "C:/Users/User/Desktop/tour/uploads/videos/";
+        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
         String uniqueFileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {
