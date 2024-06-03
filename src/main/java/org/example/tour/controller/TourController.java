@@ -19,9 +19,9 @@ public class TourController {
     private final TourService tourService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile images, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer tourDay, @RequestParam String info, @RequestHeader("lang") Language lang) {
+    public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile images, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description,@RequestParam String description1, @RequestParam Double price, @RequestParam Integer tourDay, @RequestParam String info, @RequestHeader("lang") Language lang) {
         try {
-            Tour tour = tourService.addTour(images, video, title, description, price, tourDay, info, lang
+            Tour tour = tourService.addTour(images, video, title, description,description1, price, tourDay, info, lang
             );
             return ResponseEntity.ok(tour);
         } catch (IOException e) {
@@ -49,36 +49,36 @@ public class TourController {
     }
 
     @PutMapping("/edit")
-    public ResponseEntity<?> editTour(@RequestParam String title, @RequestParam String description, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestParam Language lang) {
+    public ResponseEntity<?> editTour(@RequestParam String title, @RequestParam String description,@RequestParam String description1, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestParam Language lang) {
         try {
-            tourService.editTour(title, description, price, id,tourDay,info,lang);
+            tourService.editTour(title, description,description1, price, id,tourDay,info,lang);
             return ResponseEntity.ok("Tour edited successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
     @PutMapping("/edit/withImage")
-    public ResponseEntity<?> editTourWithImage(@RequestParam(required = false) MultipartFile image,@RequestParam String title, @RequestParam String description, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
+    public ResponseEntity<?> editTourWithImage(@RequestParam(required = false) MultipartFile image,@RequestParam String title, @RequestParam String description,@RequestParam String description1, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
         try {
-            tourService.editTourWithImage(image,title, description, price, id,tourDay,info,language);
+            tourService.editTourWithImage(image,title, description, description1, price, id,tourDay,info,language);
             return ResponseEntity.ok("Tour edited successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
     @PutMapping("/edit/withVideo")
-    public ResponseEntity<?> editTourVideo(@RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
+    public ResponseEntity<?> editTourVideo(@RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description,@RequestParam String description1, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
         try {
-            tourService.editTourWithVideo(video,title, description, price, id,tourDay,info,language);
+            tourService.editTourWithVideo(video,title, description,description1, price, id,tourDay,info,language);
             return ResponseEntity.ok("Tour edited successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());
         }
     }
     @PutMapping("/edit/withVideoAndImage")
-    public ResponseEntity<?> editTourWithVideoAndImage(@RequestParam(required = false) MultipartFile image, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
+    public ResponseEntity<?> editTourWithVideoAndImage(@RequestParam(required = false) MultipartFile image, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description,@RequestParam String description1, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
         try {
-            tourService.editTourVideoAndImage(image,video,title, description, price, id,tourDay,info,language);
+            tourService.editTourVideoAndImage(image,video,title, description,description1, price, id,tourDay,info,language);
             return ResponseEntity.ok("Tour edited successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());

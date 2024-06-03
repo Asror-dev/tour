@@ -23,10 +23,11 @@ public class  TourServiceImpl implements TourService {
     private final TourDayRepo tourDayRepo;
 
     @Override
-    public Tour addTour(MultipartFile files, MultipartFile video, String title, String description, Double price, Integer tourDay, String info, Language lang) {
+    public Tour addTour(MultipartFile files, MultipartFile video, String title, String description,String description1, Double price, Integer tourDay, String info, Language lang) {
         Tour tour = new Tour();
         tour.setTitle(title);
         tour.setDescription(description);
+        tour.setDescription1(description1);
         tour.setPrice(price);
         tour.setTourDay(tourDay);
         tour.setInfo(info);
@@ -48,11 +49,12 @@ public class  TourServiceImpl implements TourService {
     }
 
     @Override
-    public void editTourWithImage(MultipartFile image, String title, String description, Double price, UUID tourId, Integer tourDay,String info,Language language) throws IOException {
+    public void editTourWithImage(MultipartFile image, String title, String description,String description1, Double price, UUID tourId, Integer tourDay,String info,Language language) throws IOException {
         Tour tour = tourRepo.findById(tourId).orElseThrow();
         updateImage(tour, image);
         tour.setTitle(title);
         tour.setDescription(description);
+        tour.setDescription1(description1);
         tour.setPrice(price);
         tour.setTourDay(tourDay);
         tour.setLang(language);
@@ -62,11 +64,12 @@ public class  TourServiceImpl implements TourService {
     }
 
     @Override
-    public void editTourWithVideo(MultipartFile video, String title, String description, Double price, UUID tourId, Integer tourDay,String info,Language language) throws IOException {
+    public void editTourWithVideo(MultipartFile video, String title, String description,String description1, Double price, UUID tourId, Integer tourDay,String info,Language language) throws IOException {
         Tour tour = tourRepo.findById(tourId).orElseThrow();
         updateVideo(tour, video);
         tour.setTitle(title);
         tour.setDescription(description);
+        tour.setDescription1(description1);
         tour.setPrice(price);
         tour.setTourDay(tourDay);
         tour.setLang(language);
@@ -75,12 +78,13 @@ public class  TourServiceImpl implements TourService {
     }
 
     @Override
-    public void editTourVideoAndImage(MultipartFile image, MultipartFile video, String title, String description, Double price, UUID tourId, Integer tourDay,String info,Language language) throws IOException {
+    public void editTourVideoAndImage(MultipartFile image, MultipartFile video, String title, String description,String description1, Double price, UUID tourId, Integer tourDay,String info,Language language) throws IOException {
         Tour tour = tourRepo.findById(tourId).orElseThrow();
         updateVideo(tour, video);
         updateImage(tour, image);
         tour.setTitle(title);
         tour.setDescription(description);
+        tour.setDescription1(description1);
         tour.setPrice(price);
         tour.setTourDay(tourDay);
         tour.setLang(language);
@@ -91,10 +95,11 @@ public class  TourServiceImpl implements TourService {
     }
 
     @Override
-    public void editTour(String title, String description, Double price, UUID tourId,Integer tourDay,String info,Language language) {
+    public void editTour(String title, String description,String description1, Double price, UUID tourId,Integer tourDay,String info,Language language) {
         Tour tour = tourRepo.findById(tourId).orElseThrow();
         tour.setTitle(title);
         tour.setDescription(description);
+        tour.setDescription1(description1);
         tour.setPrice(price);
         tour.setTourDay(tourDay);
         tour.setLang(language);

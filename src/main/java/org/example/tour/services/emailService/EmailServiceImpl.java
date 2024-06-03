@@ -22,26 +22,29 @@ public class EmailServiceImpl implements EmailService {
     private final EnquiryRepo enquiryRepo;
     private final EmailMessageRepo emailMessageRepo;
 
-//    public void sendSimpleEmail(String to, String subject, String text, UUID enquiryId) {
-//        createMessage(enquiryId,text);
-//        SimpleMailMessage message = new SimpleMailMessage();
-//        message.setTo(to);
-//        message.setSubject(subject);
-//        message.setText(text);
-//        mailSender.send(message);
-//    }
-public void sendSimpleEmail(String subject, String htmlBody,UUID enquiryId) throws MessagingException {
+    public void sendSimpleEmail( String subject, String text, UUID enquiryId) {
     String to = enquiryRepo.findById(enquiryId).orElseThrow().getEmail();
 
-    MimeMessage mimeMessage = mailSender.createMimeMessage();
-    MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-    helper.setText(htmlBody, true);
-    helper.setTo(to);
-    helper.setSubject(subject);
-    helper.setFrom("asrorsattorov06@gmail.com"); // O'z email manzilingizni qo'ying
-    mailSender.send(mimeMessage);
-    createMessage(enquiryId,htmlBody);
-}
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        mailSender.send(message);
+        createMessage(enquiryId,text);
+
+    }
+//public void sendSimpleEmail(String subject, String htmlBody,UUID enquiryId) throws MessagingException {
+//    String to = enquiryRepo.findById(enquiryId).orElseThrow().getEmail();
+//
+//    MimeMessage mimeMessage = mailSender.createMimeMessage();
+//    MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
+//    helper.setText(htmlBody, true);
+//    helper.setTo(to);
+//    helper.setSubject(subject);
+//    helper.setFrom("asrorsattorov06@gmail.com"); // O'z email manzilingizni qo'ying
+//    mailSender.send(mimeMessage);
+//    createMessage(enquiryId,htmlBody);
+//}
 
     private void createMessage(UUID enquiryId, String text){
         Enquiry enquiry = enquiryRepo.findById(enquiryId).orElseThrow();

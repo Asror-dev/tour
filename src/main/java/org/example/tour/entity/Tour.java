@@ -24,6 +24,8 @@ public class Tour {
     private String title;
     @NotEmpty
     private String description;
+    @NotEmpty
+    private String description1;
 
     private Double price;
     private Integer tourDay;

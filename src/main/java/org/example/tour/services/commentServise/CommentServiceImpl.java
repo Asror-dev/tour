@@ -21,8 +21,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public List<Comment> getCommentsByTourId(UUID tourId) {
-        Tour tour = tourRepo.findById(tourId).orElseThrow();
-        return commentRepo.getCommentsByTour(tour);
+        return commentRepo.getCommentsByTourIdAndVisibleTrue(tourId);
     }
 
     @Override
