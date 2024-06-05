@@ -18,5 +18,4 @@ public interface TourDayService {
     void editTourDay(String title, String description, UUID tourDayId);
 
     void deletTourDay(UUID tourDayId);
-    Integer getCountOfTourDaysByTourId(UUID tourId);
 }

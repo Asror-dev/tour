@@ -24,31 +24,36 @@ public class TourDayServiceImpl implements TourDayService {
 
     @Override
     public void addTourDay(MultipartFile file, String title, String description, UUID tourId, Language lang) throws BadRequestException {
-        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
+        if (tourDayRepo.countAllByTour_Id(tourId) > tourRepo.getTourByIdAndLang(tourId, lang).getTourDay()) {
 
-        String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-        String filePath = uploadDir + uniqueFileName;
-        Tour tour = tourRepo.findById(tourId).orElseThrow();
-        if (tour.getLang().equals(lang)) {
-            TourDay tourDay = new TourDay();
-            tourDay.setTitle(title);
-            tourDay.setDescription(description);
-            tourDay.setLang(lang);
-            tourDay.setTour(tour);
-            tourDayRepo.save(tourDay);
-            try {
-                File uploadFile = new File(filePath);
-                file.transferTo(uploadFile);
-                Image image =new Image();
-                image.setTourDay(tourDay);
-                image.setName(uniqueFileName);
-                image.setPath(filePath);
-                imageRepo.save(image);
-            } catch (IOException e) {
-                throw new RuntimeException("Failed to store file " + uniqueFileName, e);
+            String uploadDir = "C:/Users/User/Desktop/tour/uploads/images/";
+
+            String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            String filePath = uploadDir + uniqueFileName;
+            Tour tour = tourRepo.findById(tourId).orElseThrow();
+            if (tour.getLang().equals(lang)) {
+                TourDay tourDay = new TourDay();
+                tourDay.setTitle(title);
+                tourDay.setDescription(description);
+                tourDay.setLang(lang);
+                tourDay.setTour(tour);
+                tourDayRepo.save(tourDay);
+                try {
+                    File uploadFile = new File(filePath);
+                    file.transferTo(uploadFile);
+                    Image image =new Image();
+                    image.setTourDay(tourDay);
+                    image.setName(uniqueFileName);
+                    image.setPath(filePath);
+                    imageRepo.save(image);
+                } catch (IOException e) {
+                    throw new RuntimeException("Failed to store file " + uniqueFileName, e);
+                }
+            }else {
+                throw new BadRequestException("The languages are not same");
             }
-        }else {
-            throw new BadRequestException("Tour ning tilini Tourdayniki bilan bir xil emas");
+        }else{
+            throw new BadRequestException("You can not add another tourDay");
         }
 
 
@@ -73,7 +78,7 @@ public class TourDayServiceImpl implements TourDayService {
             imageRepo.save(imageByTourDay);
             imageRepo.delete(imageByTourDay);
         }
-        String uploadDir = "G:/Tour/tour/src/main/java/org/example/tour/uploads/images/";
+        String uploadDir = "C:/Users/User/Desktop/tour/uploads/images/";
         String uniqueFileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {
@@ -114,8 +119,4 @@ public class TourDayServiceImpl implements TourDayService {
         tourDayRepo.deleteById(tourDay.getId());
     }
 
-    @Override
-    public Integer getCountOfTourDaysByTourId(UUID tourId) {
-        return tourDayRepo.countAllByTour_Id(tourId);
-    }
 }
