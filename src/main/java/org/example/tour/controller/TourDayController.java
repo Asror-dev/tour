@@ -21,8 +21,10 @@ public class TourDayController {
         try {
             tourDayService.addTourDay(image, title,description, tourId,lang);
             return ResponseEntity.ok("TourDay added successfully");
-        } catch (RuntimeException | BadRequestException e) {
-            throw new RuntimeException(e);
+        } catch (BadRequestException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (RuntimeException ignored){
+            return ResponseEntity.internalServerError().body("Image have not been saved successfully");
         }
     }
     @GetMapping("/get")
