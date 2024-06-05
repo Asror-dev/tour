@@ -21,7 +21,7 @@ public interface TourDayRepo extends JpaRepository<TourDay, UUID> {
 
     List<TourDay> getTourDaysByTour_IdAndAndLang(UUID tourId, Language lang);
 
-    Integer countAllByTour_Id(UUID tourId);
+    Integer countTourDayByTour_Id(UUID tourId);
 
     @Query(value = "SELECT * FROM tour_days WHERE tour_id = :tour_id", nativeQuery = true)
     List<TourDay> getTourDayByByTour(@Param("tour_id") UUID tour_id);
