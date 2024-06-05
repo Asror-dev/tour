@@ -40,7 +40,7 @@ public class  TourServiceImpl implements TourService {
 
     @Override
     public List<Tour> getAllTours(Language lang) {
-        return tourRepo.getToursByLang(lang);
+        return tourRepo.getToursByLangOrderById(lang);
     }
 
     @Override
@@ -178,7 +178,7 @@ public class  TourServiceImpl implements TourService {
 
     private void createImage(MultipartFile files, Tour tour) {
 
-        String uploadDir = "G:/Tour/tour/uploads/images";
+        String uploadDir = "G:/Tour/tour/uploads/images/";
 
         String uniqueFileName = UUID.randomUUID().toString() + "_" + files.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
@@ -200,7 +200,7 @@ public class  TourServiceImpl implements TourService {
 
     private void createVideo(MultipartFile file, Tour tour) {
 
-        String uploadDir = "G:/Tour/tour/uploads/videos";
+        String uploadDir = "G:/Tour/tour/uploads/videos/";
 
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;

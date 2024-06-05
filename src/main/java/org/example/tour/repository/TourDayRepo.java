@@ -19,7 +19,7 @@ public interface TourDayRepo extends JpaRepository<TourDay, UUID> {
 //            """, nativeQuery = true)
 //    List<TourDayProjection> getTourDaysByTourId(@Param("tourId") UUID tourId, @Param("lang")Language lang);
 
-    List<TourDay> getTourDaysByTour_IdAndAndLang(UUID tourId, Language lang);
+    List<TourDay> getTourDaysByTour_IdAndAndLangOrderById(UUID tourId, Language lang);
 
     Integer countTourDayByTour_Id(UUID tourId);
 

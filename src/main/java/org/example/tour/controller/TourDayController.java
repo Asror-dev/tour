@@ -29,7 +29,6 @@ public class TourDayController {
             return ResponseEntity.internalServerError().body("Image have not been saved successfully");
         }
     }
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/get")
     public ResponseEntity<?> getTourDaysByTourId(@RequestParam UUID tourId,@RequestHeader("lang") Language lang){
         try {

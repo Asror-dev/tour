@@ -14,7 +14,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class EnquiryController {
     private final EnquiryService enquiryService;
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @PostMapping("/add")
     public ResponseEntity<?> addEnquiry(@RequestBody EnquiryDto dto){
         try {
@@ -39,7 +38,7 @@ public class EnquiryController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/get/all")
+    @GetMapping("/getAll")
     public ResponseEntity<?> getAllEnquiry(){
         try {
             return ResponseEntity.ok(enquiryService.getAllEnquiry());

@@ -18,7 +18,6 @@ import java.util.UUID;
 public class CommentsController {
     private final CommentService commentService;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/get")
     public ResponseEntity<?> getCommentsByTourId(@RequestParam UUID tourId){
         try {
@@ -28,7 +27,6 @@ public class CommentsController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteComment(@RequestParam UUID commentId){
@@ -41,7 +39,6 @@ public class CommentsController {
 
         }
     }
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addComment(@RequestBody CommentDto dto,@RequestParam UUID tourId){
 
@@ -50,7 +47,6 @@ public class CommentsController {
 
 
     }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/change/visible")
     public ResponseEntity<?> changeCommentVisible(@RequestParam UUID commentId){

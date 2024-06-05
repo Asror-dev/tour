@@ -19,7 +19,7 @@ public class TourController {
 
     private final TourService tourService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile images, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description,@RequestParam String description1, @RequestParam Double price, @RequestParam Integer tourDay, @RequestParam String info, @RequestHeader("lang") Language lang) {
         try {
@@ -30,7 +30,6 @@ public class TourController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/get/all")
     public ResponseEntity<?> getAllTours(@RequestHeader("lang") Language lang) {
         try {
@@ -40,7 +39,6 @@ public class TourController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/get")
     public ResponseEntity<?> getTourById(@RequestParam UUID tourId, @RequestHeader("lang") Language lang) {
         try {

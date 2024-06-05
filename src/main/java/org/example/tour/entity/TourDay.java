@@ -28,8 +28,7 @@
         @NotEmpty
         @NotNull
         private String description;
-        @NotEmpty
-        @NotNull
+
         @Enumerated(EnumType.STRING)
         private Language lang;
 

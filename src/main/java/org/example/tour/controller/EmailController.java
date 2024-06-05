@@ -16,7 +16,6 @@ public class EmailController {
 
 
     private final EmailService emailService;
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @PostMapping("/sendEmail")
     public ResponseEntity<?> sendEmail(
             @RequestBody EmailDto emailDto) {

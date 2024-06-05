@@ -17,7 +17,7 @@ public interface TourRepo extends JpaRepository<Tour, UUID> {
 
 
 
-    List<Tour> getToursByLang(Language lang);
+    List<Tour> getToursByLangOrderById(Language lang);
 
     Tour getTourByIdAndLang(UUID tourId, Language lang);
 }
