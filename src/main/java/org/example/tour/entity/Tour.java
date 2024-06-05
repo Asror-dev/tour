@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.example.tour.entity.enums.Language;
 
@@ -21,13 +22,18 @@ public class Tour {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @NotEmpty
+    @NotNull
     private String title;
     @NotEmpty
+    @NotNull
     private String description;
     @NotEmpty
+    @NotNull
     private String description1;
 
+    @NotNull
     private Double price;
+    @NotNull
     private Integer tourDay;
     private String info;
     @Enumerated(EnumType.STRING)

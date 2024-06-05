@@ -2,6 +2,7 @@ package org.example.tour.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,12 +25,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @NotNull
     @NotEmpty(message = "Firstname cannot be empty")
     private String firstName;
+    @NotEmpty
+    @NotNull
     private String lastName;
     @NotEmpty(message = "Phone number cannot be empty")
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,15}$", message = "Phone number is not valid")
     private String phone;
+    @NotEmpty
+    @NotNull
     private String password;
     @Enumerated(EnumType.STRING)
     private Language language;

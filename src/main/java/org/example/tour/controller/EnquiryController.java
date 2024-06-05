@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.tour.dto.EnquiryDto;
 import org.example.tour.services.enquiryServise.EnquiryService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -13,6 +14,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class EnquiryController {
     private final EnquiryService enquiryService;
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @PostMapping("/add")
     public ResponseEntity<?> addEnquiry(@RequestBody EnquiryDto dto){
         try {
@@ -24,6 +26,7 @@ public class EnquiryController {
 
         }
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/get")
     public ResponseEntity<?> getEnquiry(@RequestParam UUID tourId){
         try {
@@ -34,15 +37,8 @@ public class EnquiryController {
 
         }
     }
-    @GetMapping("/getAll")
-    public ResponseEntity<?> getEnquiries(){
-        try {
-            return ResponseEntity.ok(enquiryService.getEnquirues());
-        }catch (Exception e){
-            return ResponseEntity.status(500).body("not get");
 
-        }
-    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/get/all")
     public ResponseEntity<?> getAllEnquiry(){
         try {

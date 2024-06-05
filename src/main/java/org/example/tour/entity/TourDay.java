@@ -5,6 +5,7 @@
     import com.fasterxml.jackson.annotation.JsonManagedReference;
     import jakarta.persistence.*;
     import jakarta.validation.constraints.NotEmpty;
+    import jakarta.validation.constraints.NotNull;
     import lombok.AllArgsConstructor;
     import lombok.Data;
     import lombok.NoArgsConstructor;
@@ -22,9 +23,13 @@
         @GeneratedValue(strategy = GenerationType.UUID)
         private UUID id;
         @NotEmpty
+        @NotNull
         private String title;
         @NotEmpty
+        @NotNull
         private String description;
+        @NotEmpty
+        @NotNull
         @Enumerated(EnumType.STRING)
         private Language lang;
 

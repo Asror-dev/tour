@@ -3,6 +3,7 @@ package org.example.tour.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,14 +21,21 @@ public class Enquiry {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @NotEmpty(message = "Firstname cannot be empty")
+    @NotNull
     private String firstName;
+    @NotEmpty(message = "Lastname cannot be empty")
+    @NotNull
     private String lastName;
+    @NotNull
     @NotEmpty(message = "Phone number cannot be empty")
     @Pattern(regexp = "^\\+?[0-9. ()-]{7,15}$", message = "Phone number is not valid")
     private String phone;
+    @NotNull
     @NotEmpty(message = "Email cannot be empty")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "Email should be valid")
     private String email;
+    @NotNull
+    @NotEmpty(message = "Text cannot be empty")
     private String text;
 
 

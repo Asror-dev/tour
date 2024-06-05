@@ -6,6 +6,7 @@ import org.example.tour.entity.Comment;
 import org.example.tour.projection.CommentProjection;
 import org.example.tour.services.commentServise.CommentService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CommentsController {
     private final CommentService commentService;
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
     @GetMapping("/get")
     public ResponseEntity<?> getCommentsByTourId(@RequestParam UUID tourId){
         try {
@@ -25,16 +28,8 @@ public class CommentsController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @GetMapping("/getByVisibleAndTourId")
-    public ResponseEntity<?> getAllCommentsByVisibleAndTourId(@RequestParam UUID tourId,Boolean visible){
-        try {
-            List<Comment> commentsByTourIdAndVisibles = commentService.getCommentsByTourIdAndVisibles(tourId, visible);
-            return ResponseEntity.ok(commentsByTourIdAndVisibles);
-        }catch (Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
 
-    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete")
     public ResponseEntity<?> deleteComment(@RequestParam UUID commentId){
         try {
@@ -46,6 +41,7 @@ public class CommentsController {
 
         }
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addComment(@RequestBody CommentDto dto,@RequestParam UUID tourId){
 
@@ -55,6 +51,7 @@ public class CommentsController {
 
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/change/visible")
     public ResponseEntity<?> changeCommentVisible(@RequestParam UUID commentId){
         try {
@@ -66,6 +63,7 @@ public class CommentsController {
 
         }
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/visible")
     public ResponseEntity<?> CommentVisible(@RequestParam Boolean visible){
         try {
@@ -77,6 +75,7 @@ public class CommentsController {
 
         }
     }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/get/all")
     public ResponseEntity<?> getAllComments(){
         try {

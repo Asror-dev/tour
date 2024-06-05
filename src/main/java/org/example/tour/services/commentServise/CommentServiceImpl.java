@@ -34,6 +34,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public void addComment(CommentDto dto,UUID tourId) {
+
         Tour tour = tourRepo.findById(tourId).orElseThrow();
         Comment comment = new Comment();
         comment.setVisible(false);
@@ -56,10 +57,7 @@ public class CommentServiceImpl implements CommentService {
         return commentRepo.findAll();
     }
 
-    @Override
-    public List<Comment> getCommentsByTourIdAndVisibles(UUID tourId, boolean visible) {
-        return commentRepo.getCommentsByTourIdAndVisible(tourId, visible);
-    }
+
 
     @Override
     public List<Comment> getCommentVisble(Boolean visible) {

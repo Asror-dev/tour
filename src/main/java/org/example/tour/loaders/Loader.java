@@ -47,6 +47,7 @@ public class Loader implements CommandLineRunner {
         User user = new User();
         user.setPhone("998914449192");
         user.setFirstName("Asror");
+        user.setLastName("Sattorov");
         user.setPassword(passwordEncoder.encode("0100"));
         user.setRoles(List.of(role));
         userRepo.save(user);

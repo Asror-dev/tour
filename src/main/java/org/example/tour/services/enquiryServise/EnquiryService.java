@@ -13,5 +13,5 @@ public interface EnquiryService {
 
     List<Enquiry> getAllEnquiry();
 
-    List<Enquiry> getEnquirues();
+  ;
 }
