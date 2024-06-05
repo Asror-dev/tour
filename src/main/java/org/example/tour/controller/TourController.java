@@ -39,6 +39,16 @@ public class TourController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/get/all/admin")
+    public ResponseEntity<?> getAllToursAdmin(@RequestHeader("lang") Language lang) {
+        try {
+            return ResponseEntity.ok(tourService.getAllTours(lang));
+
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
     @GetMapping("/get")
     public ResponseEntity<?> getTourById(@RequestParam UUID tourId, @RequestHeader("lang") Language lang) {
         try {
