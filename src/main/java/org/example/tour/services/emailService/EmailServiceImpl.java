@@ -12,6 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -32,6 +33,11 @@ public class EmailServiceImpl implements EmailService {
         mailSender.send(message);
         createMessage(enquiryId,text);
 
+    }
+
+    @Override
+    public List<EmailMessage> getEmailByEnquiry(UUID id) {
+        return emailMessageRepo.getEmailMessageByEnquiry_Id(id);
     }
 //public void sendSimpleEmail(String subject, String htmlBody,UUID enquiryId) throws MessagingException {
 //    String to = enquiryRepo.findById(enquiryId).orElseThrow().getEmail();

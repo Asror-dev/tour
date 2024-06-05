@@ -178,7 +178,7 @@ public class  TourServiceImpl implements TourService {
 
     private void createImage(MultipartFile files, Tour tour) {
 
-        String uploadDir = "G:/Tour/tour/uploads/images/";
+        String uploadDir = "C:/Users/User/Desktop/tour/uploads/images/";
 
         String uniqueFileName = UUID.randomUUID().toString() + "_" + files.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
@@ -200,7 +200,7 @@ public class  TourServiceImpl implements TourService {
 
     private void createVideo(MultipartFile file, Tour tour) {
 
-        String uploadDir = "G:/Tour/tour/uploads/videos/";
+        String uploadDir = "C:/Users/User/Desktop/tour/uploads/videos/";
 
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;

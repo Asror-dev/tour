@@ -26,4 +26,9 @@ public class EmailController {
            return ResponseEntity.badRequest().body(e.getMessage());
        }
     }
+
+    @GetMapping("/get")
+    public ResponseEntity<?> get(@RequestParam UUID id){
+        return ResponseEntity.ok(emailService.getEmailByEnquiry(id));
+    }
 }

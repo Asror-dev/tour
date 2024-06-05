@@ -1,5 +1,6 @@
 package org.example.tour.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +22,8 @@ public class EmailMessage {
     @NotNull
     private String textMessage;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @PrimaryKeyJoinColumn
+    @JsonBackReference
     private Enquiry enquiry;
 }

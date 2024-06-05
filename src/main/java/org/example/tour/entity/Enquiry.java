@@ -1,6 +1,7 @@
 package org.example.tour.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -44,6 +45,6 @@ public class Enquiry {
     private Tour tour;
 
     @OneToMany(mappedBy = "enquiry",fetch =FetchType.EAGER)
-    @JsonIgnore
-    private List<EmailMessage> tourDays;
+    @JsonManagedReference
+    private List<EmailMessage> emails;
 }
