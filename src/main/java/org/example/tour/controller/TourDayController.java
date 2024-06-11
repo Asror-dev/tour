@@ -9,6 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.UUID;
 
 @RestController
@@ -27,6 +28,8 @@ public class TourDayController {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (RuntimeException ignored){
             return ResponseEntity.internalServerError().body("Image have not been saved successfully");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
     @GetMapping("/get")

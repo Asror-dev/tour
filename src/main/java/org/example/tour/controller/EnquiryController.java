@@ -18,7 +18,7 @@ public class EnquiryController {
     public ResponseEntity<?> addEnquiry(@RequestBody EnquiryDto dto){
         try {
             enquiryService.addEnquiry(dto);
-            return ResponseEntity.ok("added");
+                return ResponseEntity.ok("added");
 
         }catch (Exception e){
             return ResponseEntity.status(500).body("not added");

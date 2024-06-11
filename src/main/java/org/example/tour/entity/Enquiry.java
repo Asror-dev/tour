@@ -27,9 +27,12 @@ public class Enquiry {
     @NotEmpty(message = "Lastname cannot be empty")
     @NotNull
     private String lastName;
-    @NotNull
+    @NotNull(message = "Phone number cannot be null")
     @NotEmpty(message = "Phone number cannot be empty")
-    @Pattern(regexp = "^\\+?[0-9. ()-]{7,15}$", message = "Phone number is not valid")
+    @Pattern(
+            regexp = "^(\\+\\d{1,3}[- ]?)?(\\(?\\d{1,4}\\)?[- ]?)?\\d{1,4}[- ]?\\d{1,4}[- ]?\\d{1,9}$",
+            message = "Phone number is not valid"
+    )
     private String phone;
     @NotNull
     @NotEmpty(message = "Email cannot be empty")

@@ -9,6 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,7 +26,7 @@ public class  TourServiceImpl implements TourService {
     private final TourDayRepo tourDayRepo;
 
     @Override
-    public Tour addTour(MultipartFile files, MultipartFile video, String title, String description,String description1, Double price, Integer tourDay, String info, Language lang) {
+    public Tour addTour(MultipartFile files, MultipartFile video, String title, String description,String description1, Double price, Integer tourDay, String info, Language lang) throws IOException {
         Tour tour = new Tour();
         tour.setTitle(title);
         tour.setDescription(description);
@@ -176,10 +179,13 @@ public class  TourServiceImpl implements TourService {
         tourRepo.save(tour);
     }
 
-    private void createImage(MultipartFile files, Tour tour) {
+    private void createImage(MultipartFile files, Tour tour) throws IOException {
 
-        String uploadDir = "C:/Users/User/Desktop/tour/uploads/images/";
-
+        String uploadDir = "G:/Tour/tour/uploads/images/";
+        Path drictoryPath = Paths.get(uploadDir);
+        if (!Files.exists(drictoryPath)){
+            Files.createDirectories(drictoryPath);
+        }
         String uniqueFileName = UUID.randomUUID().toString() + "_" + files.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {
@@ -198,10 +204,13 @@ public class  TourServiceImpl implements TourService {
 
     }
 
-    private void createVideo(MultipartFile file, Tour tour) {
+    private void createVideo(MultipartFile file, Tour tour) throws IOException {
 
-        String uploadDir = "C:/Users/User/Desktop/tour/uploads/videos/";
-
+        String uploadDir = "G:/Tour/tour/uploads/videos/";
+        Path drictoryPath = Paths.get(uploadDir);
+        if (!Files.exists(drictoryPath)){
+            Files.createDirectories(drictoryPath);
+        }
         String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
         String filePath = uploadDir + uniqueFileName;
         try {

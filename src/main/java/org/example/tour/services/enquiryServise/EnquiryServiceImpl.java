@@ -2,6 +2,7 @@ package org.example.tour.services.enquiryServise;
 
 import lombok.RequiredArgsConstructor;
 import org.example.tour.dto.EnquiryDto;
+import org.example.tour.entity.EmailMessage;
 import org.example.tour.entity.Enquiry;
 import org.example.tour.entity.Tour;
 import org.example.tour.projection.EnquiryProjection;
@@ -20,14 +21,17 @@ public class EnquiryServiceImpl implements EnquiryService {
     private final EnquiryRepo enquiryRepo;
     @Override
     public void addEnquiry(EnquiryDto dto) {
+
         Tour tour = tourRepo.findById(dto.getTourId()).orElseThrow();
         Enquiry enquiry=new Enquiry();
+
         enquiry.setEmail(dto.getEmail());
         enquiry.setLastName(dto.getLastName());
         enquiry.setFirstName(dto.getFirstName());
         enquiry.setText(dto.getText());
         enquiry.setPhone(dto.getPhone());
         enquiry.setTour(tour);
+        enquiry.setEmails(List.of(new EmailMessage()));
         enquiryRepo.save(enquiry);
     }
 

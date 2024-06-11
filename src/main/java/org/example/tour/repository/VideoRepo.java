@@ -12,10 +12,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface VideoRepo extends JpaRepository<Video, UUID> {
+
     Video getVideoByTour(Tour tour);
-@Transactional
-@Modifying
-    void deleteVideoByTour(Tour tour);
+
+    @Transactional
+    @Modifying
     @Query(value = "SELECT * FROM video WHERE tour_id = :tour_id", nativeQuery = true)
     List<Video> getVideoByTour(@Param("tour_id") UUID tour_id);
 
