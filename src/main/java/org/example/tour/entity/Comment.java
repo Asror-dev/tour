@@ -29,6 +29,7 @@ public class Comment {
     @NotNull
     private String text;
     private Boolean visible;
+    private int stars;
 
     @ManyToOne()
     @PrimaryKeyJoinColumn

@@ -41,6 +41,7 @@ public class CommentServiceImpl implements CommentService {
         comment.setText(dto.getText());
         comment.setLastName(dto.getLastName());
         comment.setFirstName(dto.getFirstName());
+        comment.setStars(dto.getStars());
         comment.setTour(tour);
         commentRepo.save(comment);
     }

@@ -9,4 +9,5 @@ public interface CommentProjection {
     Boolean getVisible();
     String getText();
     UUID getTourId();
+    int getStars();
 }
