@@ -39,25 +39,29 @@ public class Tour {
     @Enumerated(EnumType.STRING)
     private Language lang;
 
-    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<TourDay> tourDays;
 
-    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
     @JsonManagedReference
     private List<Video> videos;
 
     @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
-        @JsonManagedReference
+    @JsonManagedReference
     private List<Image> images;
 
-    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
     @JsonIgnore
-    
+
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "tour",fetch =FetchType.EAGER)
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
     @JsonIgnore
 
     private List<Enquiry> enquiries;
+
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    List<TimetableAccessibility> timetableAccessibilities;
 }

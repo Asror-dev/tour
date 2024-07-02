@@ -2,15 +2,12 @@ package org.example.tour.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.tour.dto.ContactDto;
-import org.example.tour.dto.LoginDto;
 import org.example.tour.entity.Contact;
 import org.example.tour.services.ContactServise.ContactServise;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/contact")
@@ -31,7 +28,6 @@ private final ContactServise contactServise;
         try {
             List<Contact> contacts = contactServise.getContacts();
             return ResponseEntity.ok(contacts);
-
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
