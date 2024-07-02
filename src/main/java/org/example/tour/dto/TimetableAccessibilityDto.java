@@ -11,4 +11,5 @@ public class TimetableAccessibilityDto {
     private LocalDate endDate;
     private boolean summa;
     private UUID tourId;
+    private String included;
 }

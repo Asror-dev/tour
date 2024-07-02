@@ -28,6 +28,7 @@ public class TimetableAccessibilityServiseImpl implements TimetableAccessibility
         timetableAccessibility.setStartDate(dto.getStartDate());
         timetableAccessibility.setEndDate(dto.getEndDate());
         timetableAccessibility.setTour(tour);
+        timetableAccessibility.setIncluded(dto.getIncluded());
         timetableAccessibilityRepo.save(timetableAccessibility);
     }
 }

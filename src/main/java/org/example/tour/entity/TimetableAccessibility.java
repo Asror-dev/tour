@@ -27,5 +27,6 @@ public class TimetableAccessibility {
     private Tour tour;
     @Enumerated(EnumType.STRING)
     private Language lang;
+    private String included;
 
 }
