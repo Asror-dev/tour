@@ -26,7 +26,7 @@ public class AuthController {
         try {
             Map<?, ?> login = userService.login(loginDto);
             return ResponseEntity.ok(login);
-        } catch (Exception e) {
+        } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }

@@ -181,12 +181,13 @@ public class  TourServiceImpl implements TourService {
 
     private void createImage(MultipartFile files, Tour tour) throws IOException {
 
-        String uploadDir = "G:/Tour/tour/uploads/images/";
+        String uploadDir = "C:/Users/User/Desktop/tour/uploads/images/";
         Path drictoryPath = Paths.get(uploadDir);
         if (!Files.exists(drictoryPath)){
             Files.createDirectories(drictoryPath);
         }
-        String uniqueFileName = UUID.randomUUID().toString() + "_" + files.getOriginalFilename();
+        String type = files.getOriginalFilename().substring(files.getOriginalFilename().lastIndexOf("."));
+        String uniqueFileName = UUID.randomUUID().toString() + type;
         String filePath = uploadDir + uniqueFileName;
         try {
             File uploadFile = new File(filePath);
@@ -206,12 +207,13 @@ public class  TourServiceImpl implements TourService {
 
     private void createVideo(MultipartFile file, Tour tour) throws IOException {
 
-        String uploadDir = "G:/Tour/tour/uploads/videos/";
+        String uploadDir = "C:/Users/User/Desktop/tour/uploads/videos/";
         Path drictoryPath = Paths.get(uploadDir);
         if (!Files.exists(drictoryPath)){
             Files.createDirectories(drictoryPath);
         }
-        String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String type = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        String uniqueFileName = UUID.randomUUID().toString() + type;
         String filePath = uploadDir + uniqueFileName;
         try {
             File uploadFile = new File(filePath);

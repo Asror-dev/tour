@@ -65,7 +65,6 @@ public class CommentsController {
         try {
             List<Comment> commentVisble = commentService.getCommentVisble(visible);
             return ResponseEntity.ok(commentVisble);
-
         }catch (Exception e){
             return ResponseEntity.status(500).body("not change");
 

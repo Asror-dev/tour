@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.example.tour.entity.*;
 import org.example.tour.entity.enums.Language;
+import org.example.tour.projection.TourDayProjection;
 import org.example.tour.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,7 +28,7 @@ public class TourDayServiceImpl implements TourDayService {
     @Override
     public void addTourDay(MultipartFile file, String title, String description, UUID tourId, Language lang) throws IOException {
         if (tourDayRepo.countTourDayByTour_Id(tourId) < tourRepo.getTourByIdAndLang(tourId, lang).getTourDay() ) {
-            String uploadDir = "G:/Tour/tour/uploads/images/";
+            String uploadDir = "C:/Users/User/Desktop/tour/uploads/images";
             Path drictoryPath = Paths.get(uploadDir);
             if (!Files.exists(drictoryPath)){
                 Files.createDirectories(drictoryPath);
@@ -70,7 +71,7 @@ public class TourDayServiceImpl implements TourDayService {
 
     @Override
     public void editTourDayWithImage(MultipartFile image, String title, String description, UUID tourDayId) throws IOException {
-        TourDay tourDay1 = tourDayRepo.findById(tourDayId).orElseThrow();
+        TourDay tourDay1 = tourDayRepo  .findById(tourDayId).orElseThrow();
         tourDay1.setTitle(title);
         tourDay1.setDescription(description);
         TourDay tourDay = tourDayRepo.save(tourDay1);
@@ -82,7 +83,7 @@ public class TourDayServiceImpl implements TourDayService {
             imageRepo.save(imageByTourDay);
             imageRepo.delete(imageByTourDay);
         }
-        String uploadDir = "G:/Tour/tour/uploads/images/";
+        String uploadDir = "C:/Users/User/Desktop/tour/uploads/images/";
         Path drictoryPath = Paths.get(uploadDir);
         if (!Files.exists(drictoryPath)){
             Files.createDirectories(drictoryPath);
