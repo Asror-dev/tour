@@ -18,8 +18,8 @@ public class TimetableAccessibilityServiseImpl implements TimetableAccessibility
     private final TimetableAccessibilityRepo timetableAccessibilityRepo;
     private final TourRepo tourRepo;
     @Override
-    public List<TimetableAccessibility> getTimetableAccessibility(UUID tourId) {
-        return timetableAccessibilityRepo.getTimetableAccessibilitiesByTourId(tourId);
+    public List<TimetableAccessibility> getTimetableAccessibility(UUID tourId,Language lang) {
+        return timetableAccessibilityRepo.getTimetableAccessibilitiesByLangAndTour_Id(lang,tourId);
     }
     @Override
     public void addTimetableAccessibility(TimetableAccessibilityDto dto, UUID tourId, Language lang) {

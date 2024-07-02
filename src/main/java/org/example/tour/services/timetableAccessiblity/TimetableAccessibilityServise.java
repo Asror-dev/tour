@@ -8,6 +8,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface TimetableAccessibilityServise {
-    List<TimetableAccessibility> getTimetableAccessibility(UUID tourId);
+    List<TimetableAccessibility> getTimetableAccessibility(UUID tourId,Language lang);
     void addTimetableAccessibility(TimetableAccessibilityDto dto, UUID tourId, Language language);
 }

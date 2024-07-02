@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.tour.entity.enums.Language;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -24,5 +25,7 @@ public class TimetableAccessibility {
     @JsonBackReference
     @PrimaryKeyJoinColumn
     private Tour tour;
+    @Enumerated(EnumType.STRING)
+    private Language lang;
 
 }

@@ -1,13 +1,11 @@
 package org.example.tour.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.tour.entity.enums.Language;
 
 import java.util.UUID;
 
@@ -22,4 +20,6 @@ public class Contact {
     private UUID id;
     private String firstName;
     private String phone;
+    @Enumerated(EnumType.STRING)
+    private Language lang;
 }
