@@ -12,4 +12,7 @@ public class TimetableAccessibilityDto {
     private boolean summa;
     private UUID tourId;
     private String included;
+    private Integer summa1;
+    private Integer summa2;
+
 }

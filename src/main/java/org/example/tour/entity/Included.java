@@ -7,27 +7,22 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.example.tour.entity.enums.Language;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity(name = "timetableAccessibility")
+@Entity(name = "included")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TimetableAccessibility {
+public class Included {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    @Column(length = 1000)
+    private String included;
+    @Enumerated(EnumType.STRING)
+    private Language lang;
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     @PrimaryKeyJoinColumn
     private Tour tour;
-    @Enumerated(EnumType.STRING)
-    private Language lang;
-    private String included;
-    private Integer summa1;
-    private Integer summa2;
-
 }

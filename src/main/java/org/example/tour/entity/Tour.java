@@ -22,10 +22,6 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    @Column(length = 1000)
-    private String included;
-    @Column(length = 1000)
-    private String excluded;
     @NotEmpty
     @NotNull
     private String title;
@@ -63,4 +59,12 @@ public class Tour {
     @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
     @JsonManagedReference
     List<TimetableAccessibility> timetableAccessibilities;
+
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    List<Included> included ;
+
+    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
+    @JsonManagedReference
+    List<Excluded> excludeds;
 }

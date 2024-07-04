@@ -17,7 +17,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CommentServiceImpl implements CommentService {
     private final CommentRepo commentRepo;
-    private final TourRepo tourRepo;
 
     @Override
     public void deletComment(UUID commentId) {
