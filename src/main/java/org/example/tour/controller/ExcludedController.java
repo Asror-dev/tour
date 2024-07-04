@@ -8,6 +8,8 @@ import org.example.tour.services.excludedServise.ExcludedService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/excluded")
 @RequiredArgsConstructor
@@ -20,6 +22,17 @@ public class ExcludedController {
             return ResponseEntity.ok("successfully");
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteComment(@RequestParam UUID excludedId){
+        try {
+            excludedService.deleteExcluded(excludedId);
+            return ResponseEntity.ok("deleted");
+
+        }catch (Exception e){
+            return ResponseEntity.status(500).body("not deleted");
+
         }
     }
 }

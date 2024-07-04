@@ -7,6 +7,8 @@ import org.example.tour.services.includedServise.IncludedServise;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/included")
 @RequiredArgsConstructor
@@ -19,6 +21,17 @@ public class IncludedController {
             return ResponseEntity.ok("successfully");
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteComment(@RequestParam UUID includedId){
+        try {
+            includedServise.deleteIncluded(includedId);
+            return ResponseEntity.ok("deleted");
+
+        }catch (Exception e){
+            return ResponseEntity.status(500).body("not deleted");
+
         }
     }
 }

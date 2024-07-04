@@ -9,6 +9,9 @@ import org.example.tour.repository.ExcludeRepo;
 import org.example.tour.repository.TourRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class ExcludedServiceImpl implements ExcludedService {
@@ -22,5 +25,12 @@ public class ExcludedServiceImpl implements ExcludedService {
         excluded.setExcluded(dto.getExcluded());
         excluded.setTour(tourByIdAndLang);
         excludeRepo.save(excluded);
+    }
+
+    @Override
+    public void deleteExcluded(UUID excludedId) {
+        Optional<Excluded> excluded = excludeRepo.findById(excludedId);
+        excluded.get().setTour(null);
+        excludeRepo.deleteById(excludedId);
     }
 }

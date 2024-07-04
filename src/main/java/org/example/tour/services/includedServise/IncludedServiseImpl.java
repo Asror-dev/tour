@@ -9,6 +9,8 @@ import org.example.tour.repository.IncludedRepo;
 import org.example.tour.repository.TourRepo;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class IncludedServiseImpl implements IncludedServise {
@@ -22,5 +24,12 @@ public class IncludedServiseImpl implements IncludedServise {
         included.setLang(language);
         included.setTour(tourByIdAndLang);
         includedRepo.save(included);
+    }
+
+    @Override
+    public void deleteIncluded(UUID includedId) {
+        Included included = includedRepo.findById(includedId).get();
+        included.setTour(null);
+        includedRepo.deleteById(includedId);
     }
 }
