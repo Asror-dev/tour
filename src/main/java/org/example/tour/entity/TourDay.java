@@ -39,6 +39,6 @@
         private Tour tour;
 
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tourDay")
-        @JsonBackReference
+        @JsonManagedReference
         private List<Image> images;
     }

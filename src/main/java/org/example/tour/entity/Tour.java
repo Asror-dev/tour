@@ -27,13 +27,13 @@ public class Tour {
     private String title;
     @NotEmpty
     @NotNull
-    @Column(length = 1000)
+    @Column(length = 5000)
     private String description;
     @NotNull
     private Double price;
     @NotNull
     private Integer tourDay;
-    @Column(length = 1000)
+    @Column(length = 5000)
     private String info;
     @Enumerated(EnumType.STRING)
     private Language lang;
@@ -66,5 +66,5 @@ public class Tour {
 
     @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
     @JsonManagedReference
-    List<Excluded> excludeds;
+    List<Excluded> excluded;
 }
