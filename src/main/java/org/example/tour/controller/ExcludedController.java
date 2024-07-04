@@ -17,7 +17,7 @@ public class ExcludedController {
     public ResponseEntity<?> postExcluded(@RequestBody ExcludedDto dto,@RequestHeader("lang") Language lang) {
         try {
             excludedService.addExcluded(dto,lang);
-            return ResponseEntity.ok("Send email successfully");
+            return ResponseEntity.ok("successfully");
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

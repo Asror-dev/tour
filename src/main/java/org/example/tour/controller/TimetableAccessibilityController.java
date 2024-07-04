@@ -19,7 +19,7 @@ public class TimetableAccessibilityController {
 
     @GetMapping("/get")
     public ResponseEntity<?> getTimetableAccessibilityByTourId(@RequestParam UUID tourId,@RequestHeader("lang") Language lang) {
-        try {
+    try {
             List<TimetableAccessibility> timetableAccessibility = timetableAccessibilityServise.getTimetableAccessibility(tourId,lang);
             return ResponseEntity.ok(timetableAccessibility);
         }catch (Exception e){

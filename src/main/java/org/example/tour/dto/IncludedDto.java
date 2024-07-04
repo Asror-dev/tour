@@ -8,6 +8,5 @@ import java.util.UUID;
 @Data
 public class IncludedDto {
     private String included;
-    private Language lang;
     private UUID tour_id;
 }

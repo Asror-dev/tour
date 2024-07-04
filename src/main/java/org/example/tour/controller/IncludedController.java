@@ -16,7 +16,7 @@ public class IncludedController {
     public ResponseEntity<?> postIncluded(@RequestBody IncludedDto dto, @RequestHeader("lang") Language lang) {
         try {
             includedServise.addIncluded(dto,lang);
-            return ResponseEntity.ok("Send email successfully");
+            return ResponseEntity.ok("successfully");
         }catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
