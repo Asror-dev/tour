@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.BadRequestException;
 import org.example.tour.entity.*;
 import org.example.tour.entity.enums.Language;
-import org.example.tour.projection.TourDayProjection;
 import org.example.tour.repository.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;

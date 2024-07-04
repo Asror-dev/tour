@@ -40,7 +40,8 @@ public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws
                         auth -> auth
                                 .requestMatchers("/auth/login").permitAll()
                                 .requestMatchers("/file/get").permitAll()
-                                .requestMatchers("/**").permitAll()
+                                .requestMatchers("/comments/visible").permitAll()
+                                .requestMatchers("/tour/get/all").permitAll()
                                 .anyRequest().authenticated()
                 ).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 

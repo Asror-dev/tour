@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/x")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController {
 
@@ -41,8 +41,6 @@ public class AuthController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-
     @PostMapping("/refresh")
     public ResponseEntity<?> refreshToken(@RequestHeader("key") String refreshToken){
         return   jwtService.refreshToken(refreshToken);

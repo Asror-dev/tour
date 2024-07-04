@@ -26,7 +26,7 @@ public class  TourServiceImpl implements TourService {
     private final TourDayRepo tourDayRepo;
 
     @Override
-    public Tour addTour(MultipartFile files, MultipartFile video, String title, String description,String description1, Double price, Integer tourDay, String info, Language lang) throws IOException {
+    public Tour addTour(MultipartFile files, MultipartFile video, String title, String description,String description1, Double price, Integer tourDay, String info,String excluded,String included, Language lang) throws IOException {
         Tour tour = new Tour();
         tour.setTitle(title);
         tour.setDescription(description);
@@ -35,6 +35,8 @@ public class  TourServiceImpl implements TourService {
         tour.setTourDay(tourDay);
         tour.setInfo(info);
         tour.setLang(lang);
+        tour.setIncluded(included);
+        tour.setExcluded(excluded);
         Tour saveTour = tourRepo.save(tour);
         createImage(files, saveTour);
         createVideo(video, saveTour);

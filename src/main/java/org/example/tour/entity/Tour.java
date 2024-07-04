@@ -21,6 +21,8 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    private String included;
+    private String excluded;
     @NotEmpty
     @NotNull
     private String title;
