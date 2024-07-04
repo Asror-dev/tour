@@ -20,7 +20,6 @@ public class TimetableAccessibility {
     private UUID id;
     private LocalDate startDate;
     private LocalDate endDate;
-    private boolean summa;
     @ManyToOne(fetch = FetchType.EAGER)
     @JsonBackReference
     @PrimaryKeyJoinColumn

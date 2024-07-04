@@ -27,18 +27,18 @@
         private String title;
         @NotEmpty
         @NotNull
+        @Column(length = 1000)
         private String description;
 
         @Enumerated(EnumType.STRING)
         private Language lang;
 
-        @ManyToOne
+        @ManyToOne(fetch = FetchType.EAGER)
         @PrimaryKeyJoinColumn
-        @JsonIgnore
-
+        @JsonBackReference
         private Tour tour;
 
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tourDay")
-        @JsonManagedReference
+        @JsonBackReference
         private List<Image> images;
     }

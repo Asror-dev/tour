@@ -38,10 +38,8 @@ public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
+                                .requestMatchers("/**").permitAll()
                                 .requestMatchers("/auth/login").permitAll()
-                                .requestMatchers("/file/get").permitAll()
-                                .requestMatchers("/comments/visible").permitAll()
-                                .requestMatchers("/tour/get/all").permitAll()
                                 .anyRequest().authenticated()
                 ).addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 

@@ -21,9 +21,9 @@ public class TourController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile images, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description,@RequestParam String description1, @RequestParam Double price, @RequestParam Integer tourDay, @RequestParam String info,@RequestParam String included,@RequestParam String excluded, @RequestHeader("lang") Language lang) {
+    public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile images, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer tourDay, @RequestParam String info, @RequestHeader("lang") Language lang) {
         try {
-            Tour tour = tourService.addTour(images, video, title, description,description1, price, tourDay, info, included,excluded,lang);
+            Tour tour = tourService.addTour(images, video, title, description, price, tourDay, info, lang);
             return ResponseEntity.ok(tour);
         } catch (IOException e) {
             throw new RuntimeException(e);

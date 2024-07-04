@@ -20,29 +20,21 @@ public class CommentServiceImpl implements CommentService {
     private final TourRepo tourRepo;
 
     @Override
-    public List<Comment> getCommentsByTourId(UUID tourId) {
-        return commentRepo.getCommentsByTourIdAndVisibleTrue(tourId);
-    }
-
-    @Override
     public void deletComment(UUID commentId) {
         Comment comment = commentRepo.findById(commentId).orElseThrow();
-        comment.setTour(null);
         commentRepo.save(comment);
         commentRepo.deleteById(commentId);
     }
 
     @Override
-    public void addComment(CommentDto dto,UUID tourId) {
-
-        Tour tour = tourRepo.findById(tourId).orElseThrow();
+    public void addComment(CommentDto dto) {
         Comment comment = new Comment();
         comment.setVisible(false);
         comment.setText(dto.getText());
         comment.setLastName(dto.getLastName());
         comment.setFirstName(dto.getFirstName());
         comment.setStars(dto.getStars());
-        comment.setTour(tour);
+        comment.setTitle(dto.getTitle());
         commentRepo.save(comment);
     }
 

@@ -40,6 +40,7 @@ public class Enquiry {
     private String email;
     @NotNull
     @NotEmpty(message = "Text cannot be empty")
+    @Column(length = 1000)
     private String text;
 
 

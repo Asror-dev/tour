@@ -8,10 +8,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CommentService {
-    List<Comment> getCommentsByTourId(UUID tourId);
     void deletComment(UUID commentId);
 
-    void addComment(CommentDto dto,UUID tourId);
+    void addComment(CommentDto dto);
 
     void changeCommentVisible(UUID commentId);
     List<Comment> getCommentVisble(Boolean visible);

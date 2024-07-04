@@ -1,5 +1,6 @@
 package org.example.tour.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -28,21 +29,19 @@ public class Tour {
     private String title;
     @NotEmpty
     @NotNull
+    @Column(length = 1000)
     private String description;
-    @NotEmpty
-    @NotNull
-    private String description1;
-
     @NotNull
     private Double price;
     @NotNull
     private Integer tourDay;
+    @Column(length = 1000)
     private String info;
     @Enumerated(EnumType.STRING)
     private Language lang;
 
     @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
-    @JsonIgnore
+    @JsonManagedReference
     private List<TourDay> tourDays;
 
     @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
@@ -53,10 +52,6 @@ public class Tour {
     @JsonManagedReference
     private List<Image> images;
 
-    @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
-    @JsonIgnore
-
-    private List<Comment> comments;
 
     @OneToMany(mappedBy = "tour", fetch = FetchType.EAGER)
     @JsonIgnore

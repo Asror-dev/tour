@@ -7,6 +7,7 @@ import java.util.UUID;
 @Data
 public class CommentDto {
     private String text;
+    private String title;
     private String firstName;
     private String lastName;
     private int stars;

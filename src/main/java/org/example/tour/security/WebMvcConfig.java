@@ -66,7 +66,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         .map(loc -> createRelative(loc, requestPath))
                         .filter(resource -> resource != null && resource.exists())
                         .findFirst()
-                        .orElseGet(null);
+                        .orElseThrow();
             }
             return index;
         }

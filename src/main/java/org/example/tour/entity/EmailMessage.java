@@ -20,6 +20,7 @@ public class EmailMessage {
     private UUID id;
     @NotEmpty(message = "Message cannot be empty")
     @NotNull
+    @Column(length = 1000)
     private String textMessage;
 
     @ManyToOne(fetch = FetchType.EAGER)
