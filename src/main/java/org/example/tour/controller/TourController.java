@@ -21,15 +21,14 @@ public class TourController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile images, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam Integer tourDay, @RequestParam String info, @RequestHeader("lang") Language lang) {
+    public ResponseEntity<?> addTour(@RequestParam(required = false) MultipartFile images, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String included, @RequestParam String excluded, @RequestParam String description, @RequestParam Double price, @RequestParam Integer tourDay, @RequestParam String info, @RequestHeader("lang") Language lang) {
         try {
-            Tour tour = tourService.addTour(images, video, title, description, price, tourDay, info, lang);
+            Tour tour = tourService.addTour(included,excluded,images, video, title, description, price, tourDay, info, lang);
             return ResponseEntity.ok(tour);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
-
     @GetMapping("/get/all")
     public ResponseEntity<?> getAllTours(@RequestHeader("lang") Language lang) {
         try {
@@ -60,9 +59,9 @@ public class TourController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/edit")
-    public ResponseEntity<?> editTour(@RequestParam String title, @RequestParam String description, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestParam Language lang) {
+    public ResponseEntity<?> editTour(@RequestParam String title, @RequestParam String description, @RequestParam String included, @RequestParam String excluded, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestParam Language lang) {
         try {
-            tourService.editTour(title, description, price, id,tourDay,info,lang);
+            tourService.editTour(included,excluded,title, description, price, id,tourDay,info,lang);
             return ResponseEntity.ok("Tour edited successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -70,9 +69,9 @@ public class TourController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/edit/withImage")
-    public ResponseEntity<?> editTourWithImage(@RequestParam(required = false) MultipartFile image,@RequestParam String title, @RequestParam String description, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
+    public ResponseEntity<?> editTourWithImage(@RequestParam(required = false) MultipartFile image,@RequestParam String included, @RequestParam String excluded,@RequestParam String title, @RequestParam String description, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
         try {
-            tourService.editTourWithImage(image,title, description, price, id,tourDay,info,language);
+            tourService.editTourWithImage(included,excluded,image,title, description, price, id,tourDay,info,language);
             return ResponseEntity.ok("Tour edited successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -80,9 +79,9 @@ public class TourController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/edit/withVideo")
-    public ResponseEntity<?> editTourVideo(@RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
+    public ResponseEntity<?> editTourVideo(@RequestParam(required = false) MultipartFile video,@RequestParam String included, @RequestParam String excluded, @RequestParam String title, @RequestParam String description, @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
         try {
-            tourService.editTourWithVideo(video,title, description, price, id,tourDay,info,language);
+            tourService.editTourWithVideo(included,excluded,video,title, description, price, id,tourDay,info,language);
             return ResponseEntity.ok("Tour edited successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());
@@ -90,9 +89,9 @@ public class TourController {
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/edit/withVideoAndImage")
-    public ResponseEntity<?> editTourWithVideoAndImage(@RequestParam(required = false) MultipartFile image, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description,   @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
+    public ResponseEntity<?> editTourWithVideoAndImage(@RequestParam(required = false) MultipartFile image,@RequestParam String included, @RequestParam String excluded, @RequestParam(required = false) MultipartFile video, @RequestParam String title, @RequestParam String description,   @RequestParam Integer tourDay,@RequestParam Double price, @RequestParam UUID id,@RequestParam String info,@RequestHeader("lang") Language language) {
         try {
-            tourService.editTourVideoAndImage(image,video,title, description, price, id,tourDay,info,language);
+            tourService.editTourVideoAndImage(included,excluded,image,video,title, description, price, id,tourDay,info,language);
             return ResponseEntity.ok("Tour edited successfully");
         } catch (Exception e) {
             return ResponseEntity.status(400).body(e.getMessage());

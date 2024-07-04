@@ -22,7 +22,9 @@ public class Tour {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+    @Column(length = 1000)
     private String included;
+    @Column(length = 1000)
     private String excluded;
     @NotEmpty
     @NotNull
