@@ -24,7 +24,7 @@ public class IncludedController {
         }
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteComment(@RequestParam UUID includedId){
+    public ResponseEntity<?> deleteIncluded(@RequestParam UUID includedId){
         try {
             includedServise.deleteIncluded(includedId);
             return ResponseEntity.ok("deleted");

@@ -25,7 +25,7 @@ public class ExcludedController {
         }
     }
     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteComment(@RequestParam UUID excludedId){
+    public ResponseEntity<?> deleteExcluded(@RequestParam UUID excludedId){
         try {
             excludedService.deleteExcluded(excludedId);
             return ResponseEntity.ok("deleted");
