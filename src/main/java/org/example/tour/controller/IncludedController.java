@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/encluded")
+@RequestMapping("/included")
 @RequiredArgsConstructor
-public class EncludedContrller {
+public class IncludedController {
     private final IncludedServise includedServise;
     @PostMapping("/post")
     public ResponseEntity<?> postIncluded(@RequestBody IncludedDto dto, @RequestHeader("lang") Language lang) {
