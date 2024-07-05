@@ -23,7 +23,7 @@ public class IncludedController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    @DeleteMapping("/delete")
+    @DeleteMapping("/remove")
     public ResponseEntity<?> deleteIncluded(@RequestParam UUID includedId){
         try {
             includedServise.deleteIncluded(includedId);

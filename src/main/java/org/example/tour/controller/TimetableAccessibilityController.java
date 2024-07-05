@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/timetableAccessibility")
+@RequestMapping("/timeTable")
 @RequiredArgsConstructor
 public class TimetableAccessibilityController {
     private final TimetableAccessibilityServise timetableAccessibilityServise;
@@ -27,9 +27,9 @@ public class TimetableAccessibilityController {
         }
     }
     @PostMapping("/post")
-    public ResponseEntity<?> postTimetableAccessiblity(@RequestBody TimetableAccessibilityDto dto,@RequestParam UUID tourId,@RequestHeader("lang") Language lang) {
+    public ResponseEntity<?> postTimetableAccessiblity(@RequestBody TimetableAccessibilityDto dto,@RequestHeader("lang") Language lang) {
         try {
-            timetableAccessibilityServise.addTimetableAccessibility(dto,tourId,lang);
+            timetableAccessibilityServise.addTimetableAccessibility(dto,lang);
             return ResponseEntity.ok("post timetable accessiblity");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

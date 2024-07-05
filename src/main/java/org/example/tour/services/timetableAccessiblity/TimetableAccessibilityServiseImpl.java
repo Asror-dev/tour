@@ -22,15 +22,15 @@ public class TimetableAccessibilityServiseImpl implements TimetableAccessibility
         return timetableAccessibilityRepo.getTimetableAccessibilitiesByLangAndTour_Id(lang,tourId);
     }
     @Override
-    public void addTimetableAccessibility(TimetableAccessibilityDto dto, UUID tourId, Language lang) {
+    public void addTimetableAccessibility(TimetableAccessibilityDto dto, Language lang) {
         TimetableAccessibility timetableAccessibility = new TimetableAccessibility();
-        Tour tour = tourRepo.getTourByIdAndLang(tourId, lang);
+        Tour tour = tourRepo.getTourByIdAndLang(dto.getTourId(), lang);
         timetableAccessibility.setStartDate(dto.getStartDate());
         timetableAccessibility.setEndDate(dto.getEndDate());
         timetableAccessibility.setTour(tour);
-        timetableAccessibility.setIncluded(dto.getIncluded());
-        timetableAccessibility.setSumma1(dto.getSumma1());
-        timetableAccessibility.setSumma2(dto.getSumma2());
+        timetableAccessibility.setInfo(dto.getInfo());
+        timetableAccessibility.setPrice(dto.getPrice());
+        timetableAccessibility.setSecondPrice(dto.getSecondPrice());
         timetableAccessibilityRepo.save(timetableAccessibility);
     }
 }
