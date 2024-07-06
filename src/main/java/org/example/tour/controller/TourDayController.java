@@ -17,7 +17,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TourDayController {
     private final TourDayService tourDayService;
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
     public ResponseEntity<?> addTourDay(@RequestParam(required = false) MultipartFile image, @RequestParam String title, @RequestParam String description, @RequestParam UUID tourId, @RequestHeader("lang") Language lang){

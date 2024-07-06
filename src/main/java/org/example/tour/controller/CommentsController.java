@@ -3,7 +3,6 @@ package org.example.tour.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.tour.dto.CommentDto;
 import org.example.tour.entity.Comment;
-import org.example.tour.projection.CommentProjection;
 import org.example.tour.services.commentServise.CommentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

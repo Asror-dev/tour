@@ -15,10 +15,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ContactController {
 private final ContactServise contactServise;
-    @PostMapping("/post")
+    @PostMapping("/post ")
     public ResponseEntity<?> postContact(@RequestBody ContactDto dto,@RequestHeader("lang") Language lang) {
         try {
-          contactServise.addContact(dto,lang);
+            contactServise.addContact(dto,lang);
             return ResponseEntity.ok("post contact");
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

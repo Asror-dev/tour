@@ -2,7 +2,6 @@ package org.example.tour.dto;
 
 import lombok.Data;
 
-import java.util.UUID;
 
 @Data
 public class CommentDto {

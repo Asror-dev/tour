@@ -22,7 +22,6 @@ public class ContactServiseImpl implements ContactServise {
         contact.setLang(language);
         contactRepo.save(contact);
     }
-
     @Override
     public List<Contact> getContacts(Language language) {
         return contactRepo.getContactsByLang(language);

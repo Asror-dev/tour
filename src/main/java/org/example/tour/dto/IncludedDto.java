@@ -1,7 +1,6 @@
 package org.example.tour.dto;
 
 import lombok.Data;
-import org.example.tour.entity.enums.Language;
 
 import java.util.UUID;
 
