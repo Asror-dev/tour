@@ -186,7 +186,7 @@ public class  TourServiceImpl implements TourService {
         if (!Files.exists(drictoryPath)){
             Files.createDirectories(drictoryPath);
         }
-        String uniqueFileName = UUID.randomUUID().toString() + "_" + files.getOriginalFilename();
+        String uniqueFileName = UUID.randomUUID().toString();
         String filePath = uploadDir + uniqueFileName;
         try {
             File uploadFile = new File(filePath);
@@ -211,7 +211,7 @@ public class  TourServiceImpl implements TourService {
         if (!Files.exists(drictoryPath)){
             Files.createDirectories(drictoryPath);
         }
-        String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String uniqueFileName = UUID.randomUUID().toString();
         String filePath = uploadDir + uniqueFileName;
         try {
             File uploadFile = new File(filePath);

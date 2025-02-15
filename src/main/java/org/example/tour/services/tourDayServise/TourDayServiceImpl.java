@@ -32,7 +32,7 @@ public class TourDayServiceImpl implements TourDayService {
             if (!Files.exists(drictoryPath)){
                 Files.createDirectories(drictoryPath);
             }
-            String uniqueFileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+            String uniqueFileName = UUID.randomUUID().toString();
             String filePath = uploadDir + uniqueFileName;
             Tour tour = tourRepo.findById(tourId).orElseThrow();
             if (tour.getLang().equals(lang)) {
@@ -87,7 +87,7 @@ public class TourDayServiceImpl implements TourDayService {
         if (!Files.exists(drictoryPath)){
             Files.createDirectories(drictoryPath);
         }
-        String uniqueFileName = UUID.randomUUID().toString() + "_" + image.getOriginalFilename();
+        String uniqueFileName = UUID.randomUUID().toString();
         String filePath = uploadDir + uniqueFileName;
         try {
             File uploadFile = new File(filePath);

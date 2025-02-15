@@ -35,7 +35,6 @@
         @ManyToOne
         @PrimaryKeyJoinColumn
         @JsonIgnore
-
         private Tour tour;
 
         @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "tourDay")
